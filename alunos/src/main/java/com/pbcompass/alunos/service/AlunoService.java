@@ -17,6 +17,7 @@ public class AlunoService {
     @Transactional
     public Aluno cadastrar(Aluno aluno) {
         try {
+            aluno.setAtivo(true);
             return alunoRepository.save(aluno);
         } catch (DataIntegrityViolationException e) {
             throw new CpfUniqueViolationException(String.format("CPF '%s' já cadastrado", aluno.getCpf()));
