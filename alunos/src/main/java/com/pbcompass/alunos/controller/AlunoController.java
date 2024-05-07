@@ -3,10 +3,16 @@ package com.pbcompass.alunos.controller;
 import com.pbcompass.alunos.dto.AlunoCriarDto;
 import com.pbcompass.alunos.dto.AlunoRespostaDto;
 import com.pbcompass.alunos.entity.Aluno;
+import com.pbcompass.alunos.exception.MensagemDeErro;
 import com.pbcompass.alunos.mapper.AlunoMapper;
 import com.pbcompass.alunos.service.AlunoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +26,29 @@ public class AlunoController {
 
     private final AlunoService alunoService;
 
+    @Operation(summary = "Cadastrar um novo aluno",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AlunoRespostaDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "CPF já cadastrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErro.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Dados de entrada inválidos",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErro.class))
+                    ),
+            }
+    )
     @PostMapping
     public ResponseEntity<AlunoRespostaDto> cadastrar(@RequestBody @Valid AlunoCriarDto dto) {
         Aluno aluno = AlunoMapper.toAluno(dto);
         AlunoRespostaDto resposta = AlunoMapper.toRespostaDto(alunoService.cadastrar(aluno));
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
 }
