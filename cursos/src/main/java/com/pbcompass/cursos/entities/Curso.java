@@ -32,7 +32,6 @@ public class Curso implements Serializable {
     @JoinColumn(name = "id_professor")
     private Professor professor;
 
-
     @Column(name = "ativo", nullable = false)
     private boolean ativo;
 
