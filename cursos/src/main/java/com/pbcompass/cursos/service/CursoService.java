@@ -6,20 +6,18 @@ import com.pbcompass.cursos.exceptions.EntityNotFoundException;
 
 import com.pbcompass.cursos.repository.CursoRepository;
 import jakarta.persistence.PersistenceException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
 public class CursoService {
 
-    @Autowired
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
 
     @Transactional
-    public Curso criarCurso(Curso curso){
+    public Curso cadastrar(Curso curso){
         try{
             return cursoRepository.save(curso);
         } catch (PersistenceException e) {
@@ -27,14 +25,14 @@ public class CursoService {
         }
     }
 
-    @Transactional
-    public Curso findById(Long id) {
+    @Transactional(readOnly = true)
+    public Curso buscarPorId(Long id) {
         return cursoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Curso com 'id='%s''nao foi encontrado", id)));
     }
 
-    @Transactional
-    public Curso findByName(String nome) {
+    @Transactional(readOnly = true)
+    public Curso buscarPorNome(String nome) {
         return cursoRepository.findByNome(nome).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Curso '%s' não foi encontrado", nome)));
     }
