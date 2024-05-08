@@ -37,13 +37,12 @@ public class Curso implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "area", length = 25)
-    private Area area = Area.NULL;
+    private Area area;
 
     public enum Area{
         CIENCIAS_HUMANAS,
         CIENCIAS_SOCIAIS,
-        TECNOLOGIAS,
-        NULL
+        TECNOLOGIAS;
     }
 
     @Override
