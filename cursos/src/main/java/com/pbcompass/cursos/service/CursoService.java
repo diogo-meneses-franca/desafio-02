@@ -1,6 +1,7 @@
 package com.pbcompass.cursos.service;
 
 import com.pbcompass.cursos.entities.Curso;
+import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.EntityNotFoundException;
 
 import com.pbcompass.cursos.repository.CursoRepository;
@@ -36,5 +37,19 @@ public class CursoService {
     public Curso findByName(String nome) {
         return cursoRepository.findByNome(nome).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Curso '%s' não foi encontrado", nome)));
+    }
+
+    @Transactional
+    public void inativarCurso(Long id) {
+        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
+        curso.setAtivo(false);
+        cursoRepository.save(curso);
+    }
+
+    @Transactional
+    public void alterarProfessor(Long id, Professor prof) {
+        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
+        curso.setProfessor(new Professor(prof.getId(), prof.getNome()));
+        cursoRepository.save(curso);
     }
 }

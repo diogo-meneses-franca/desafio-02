@@ -1,7 +1,9 @@
 package com.pbcompass.cursos.service;
 
+import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.EntityNotFoundException;
+import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.repository.ProfessorRepository;
 import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
@@ -15,6 +17,9 @@ public class ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+
+    @Autowired
+    private CursoRepository cursoRepository;
 
     @Transactional
     public Professor addProfessor(Professor professor){
