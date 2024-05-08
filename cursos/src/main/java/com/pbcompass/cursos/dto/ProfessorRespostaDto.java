@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfessorRespotaDto {
+public class ProfessorRespostaDto {
 
     private Long id;
     private String nome;
