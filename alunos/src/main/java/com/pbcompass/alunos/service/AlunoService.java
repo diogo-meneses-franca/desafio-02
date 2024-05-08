@@ -3,10 +3,10 @@ package com.pbcompass.alunos.service;
 import com.pbcompass.alunos.entity.Aluno;
 import com.pbcompass.alunos.exception.CpfUniqueViolationException;
 import com.pbcompass.alunos.repository.AlunoRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
