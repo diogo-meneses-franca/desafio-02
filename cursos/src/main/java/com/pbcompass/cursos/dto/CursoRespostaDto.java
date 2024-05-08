@@ -2,7 +2,7 @@ package com.pbcompass.cursos.dto;
 
 import com.pbcompass.cursos.entities.Curso.Area;
 
-public record CursoDto(
+public record CursoRespostaDto(
         Long id,
         String nome,
         Integer quantidadeHoras,
