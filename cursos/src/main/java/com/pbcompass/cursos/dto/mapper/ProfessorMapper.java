@@ -14,7 +14,7 @@ public class ProfessorMapper {
         return new ModelMapper().map(dto, Professor.class);
     }
 
-    public static ProfessorRespotaDto toRespotaDto(Professor professor){
+    public static ProfessorRespotaDto toRespostaDto(Professor professor){
         return new ModelMapper().map(professor, ProfessorRespotaDto.class);
     }
 }
