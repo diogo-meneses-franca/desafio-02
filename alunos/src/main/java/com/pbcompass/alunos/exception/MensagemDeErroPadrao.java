@@ -14,7 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @ToString
-public class MensagemDeErro {
+public class MensagemDeErroPadrao {
 
     private String path;
     private String method;
@@ -24,7 +24,7 @@ public class MensagemDeErro {
 
     private Map<String, String> erros = new HashMap<>();
 
-    public MensagemDeErro(HttpServletRequest request, HttpStatus status, String mensagem) {
+    public MensagemDeErroPadrao(HttpServletRequest request, HttpStatus status, String mensagem) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -32,7 +32,7 @@ public class MensagemDeErro {
         this.mensagem = mensagem;
     }
 
-    public MensagemDeErro(HttpServletRequest request, HttpStatus status, String mensagem, BindingResult result) {
+    public MensagemDeErroPadrao(HttpServletRequest request, HttpStatus status, String mensagem, BindingResult result) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
