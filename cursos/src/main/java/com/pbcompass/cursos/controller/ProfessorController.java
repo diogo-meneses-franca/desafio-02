@@ -1,5 +1,6 @@
 package com.pbcompass.cursos.controller;
 
+import com.pbcompass.cursos.dto.CursoCriarDto;
 import com.pbcompass.cursos.dto.ProfessorCriarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
@@ -8,10 +9,7 @@ import com.pbcompass.cursos.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController

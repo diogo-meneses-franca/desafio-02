@@ -43,11 +43,4 @@ public class CursoService {
         curso.setAtivo(false);
         cursoRepository.save(curso);
     }
-
-    @Transactional
-    public void alterarProfessor(Long id, Professor prof) {
-        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
-        curso.setProfessor(new Professor(prof.getId(), prof.getNome()));
-        cursoRepository.save(curso);
-    }
 }

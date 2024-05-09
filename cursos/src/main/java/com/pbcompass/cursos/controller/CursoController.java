@@ -23,5 +23,4 @@ public class CursoController {
         CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.cadastrar(curso));
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
-
 }
