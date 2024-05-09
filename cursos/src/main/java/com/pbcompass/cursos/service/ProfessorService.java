@@ -53,7 +53,7 @@ public class ProfessorService {
         return new ProfessorRespostaDto(id, professor.getNome());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Professor> buscarTodos(){
         return professorRepository.findAll();
     }
