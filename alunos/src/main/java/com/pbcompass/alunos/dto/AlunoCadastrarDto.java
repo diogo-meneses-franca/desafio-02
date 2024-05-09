@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlunoCriarDto {
+public class AlunoCadastrarDto {
 
     @NotBlank
     @Size(max = 150)
