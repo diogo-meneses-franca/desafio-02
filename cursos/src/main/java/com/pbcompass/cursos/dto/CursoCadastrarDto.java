@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CursoCriarDto {
+public class CursoCadastrarDto {
 
     private String nome;
     private Integer quantidadeHoras;

@@ -1,7 +1,6 @@
 package com.pbcompass.cursos.service;
 
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.EntityNotFoundException;
 
 import com.pbcompass.cursos.repository.CursoRepository;
@@ -9,6 +8,8 @@ import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -42,5 +43,10 @@ public class CursoService {
         Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
         curso.setAtivo(false);
         cursoRepository.save(curso);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Curso> buscarTodos() {
+        return cursoRepository.findAll();
     }
 }

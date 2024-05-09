@@ -1,6 +1,6 @@
 package com.pbcompass.cursos.service;
 
-import com.pbcompass.cursos.dto.ProfessorCriarDto;
+import com.pbcompass.cursos.dto.ProfessorCadastrarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.entities.Professor;
@@ -43,7 +43,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public ProfessorRespostaDto alterar(Long id, ProfessorCriarDto dto) {
+    public ProfessorRespostaDto alterar(Long id, ProfessorCadastrarDto dto) {
         Curso curso = cursoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Professor não está associado a nenhum curso"));
         Professor professor = professorRepository.findById(id).orElseThrow(
@@ -53,7 +53,7 @@ public class ProfessorService {
         return new ProfessorRespostaDto(id, professor.getNome());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Professor> buscarTodos(){
         return professorRepository.findAll();
     }
