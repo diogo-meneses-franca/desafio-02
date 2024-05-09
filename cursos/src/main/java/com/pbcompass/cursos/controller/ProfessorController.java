@@ -30,4 +30,10 @@ public class ProfessorController {
         ProfessorRespostaDto respostaDto = service.alterar(id, dto);
         return ResponseEntity.ok(respostaDto);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id){
+        Professor professor = service.buscarPorId(id);
+        return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
+    }
 }
