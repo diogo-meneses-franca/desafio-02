@@ -42,7 +42,7 @@ public class Curso implements Serializable {
     public enum Area{
         CIENCIAS_HUMANAS,
         CIENCIAS_SOCIAIS,
-        TECNOLOGIAS;
+        TECNOLOGIAS
     }
 
     @Override

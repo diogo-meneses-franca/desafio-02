@@ -33,19 +33,19 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id) {
         Professor professor = service.buscarPorId(id);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
     @GetMapping
-    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome){
+    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome) {
         Professor professor = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
     @GetMapping("/buscartodos")
-    public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos(){
+    public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos() {
         List<Professor> lista = service.buscarTodos();
         return ResponseEntity.ok(ProfessorMapper.toListaDto(lista));
     }

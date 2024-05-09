@@ -20,22 +20,27 @@ public class CursoController {
     private final CursoService service;
 
     @PostMapping
-    public ResponseEntity<CursoRespostaDto> cadastrar(@RequestBody CursoCriarDto dto){
+    public ResponseEntity<CursoRespostaDto> cadastrar(@RequestBody CursoCriarDto dto) {
         Curso curso = CursoMapper.toCurso(dto);
         CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.cadastrar(curso));
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<CursoRespostaDto>> buscarTodos(){
+    @GetMapping("/buscartodos")
+    public ResponseEntity<List<CursoRespostaDto>> buscarTodos() {
         List<Curso> lista = service.buscarTodos();
         return ResponseEntity.ok(CursoMapper.toListaDto(lista));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CursoRespostaDto> buscarId(@PathVariable long id){
+    public ResponseEntity<CursoRespostaDto> buscarId(@PathVariable long id) {
         Curso curso = service.buscarPorId(id);
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
 
+    @GetMapping
+    public ResponseEntity<CursoRespostaDto> buscarPorNome(@RequestParam String nome) {
+        Curso curso = service.buscarPorNome(nome);
+        return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
+    }
 }
