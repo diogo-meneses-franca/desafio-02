@@ -36,4 +36,10 @@ public class ProfessorController {
         Professor professor = service.buscarPorId(id);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
+
+    @GetMapping
+    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome){
+        Professor professor = service.buscarPorNome(nome);
+        return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
+    }
 }
