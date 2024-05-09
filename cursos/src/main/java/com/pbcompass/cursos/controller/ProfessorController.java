@@ -24,4 +24,10 @@ public class ProfessorController {
         ProfessorRespostaDto respostaDto = ProfessorMapper.toRespostaDto(service.cadastrar(professor));
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
+
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<ProfessorRespostaDto> alterar(@PathVariable Long id, @RequestBody ProfessorCriarDto dto) {
+        ProfessorRespostaDto respostaDto = service.alterar(id, dto);
+        return ResponseEntity.ok(respostaDto);
+    }
 }
