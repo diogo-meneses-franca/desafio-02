@@ -21,4 +21,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<MensagemDeErroPadrao> methodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemDeErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, "Dados de entrada inválidos"));
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MensagemDeErroPadrao> exception(Exception ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MensagemDeErroPadrao(request, HttpStatus.INTERNAL_SERVER_ERROR, "Ocorreu um erro inesperado, tente novamente mais tarde"));
+    }
 }
