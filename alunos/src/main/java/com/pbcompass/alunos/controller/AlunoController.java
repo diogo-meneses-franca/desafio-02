@@ -1,9 +1,9 @@
 package com.pbcompass.alunos.controller;
 
-import com.pbcompass.alunos.dto.AlunoCriarDto;
+import com.pbcompass.alunos.dto.AlunoCadastrarDto;
 import com.pbcompass.alunos.dto.AlunoRespostaDto;
 import com.pbcompass.alunos.entity.Aluno;
-import com.pbcompass.alunos.exception.MensagemDeErro;
+import com.pbcompass.alunos.exception.MensagemDeErroPadrao;
 import com.pbcompass.alunos.mapper.AlunoMapper;
 import com.pbcompass.alunos.service.AlunoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,17 +35,17 @@ public class AlunoController {
                     @ApiResponse(
                             responseCode = "409",
                             description = "CPF já cadastrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErro.class))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErroPadrao.class))
                     ),
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErro.class))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemDeErroPadrao.class))
                     ),
             }
     )
     @PostMapping
-    public ResponseEntity<AlunoRespostaDto> cadastrar(@RequestBody @Valid AlunoCriarDto dto) {
+    public ResponseEntity<AlunoRespostaDto> cadastrar(@RequestBody @Valid AlunoCadastrarDto dto) {
         Aluno aluno = AlunoMapper.toAluno(dto);
         AlunoRespostaDto resposta = AlunoMapper.toRespostaDto(alunoService.cadastrar(aluno));
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);

@@ -1,6 +1,6 @@
 package com.pbcompass.alunos.mapper;
 
-import com.pbcompass.alunos.dto.AlunoCriarDto;
+import com.pbcompass.alunos.dto.AlunoCadastrarDto;
 import com.pbcompass.alunos.dto.AlunoRespostaDto;
 import com.pbcompass.alunos.entity.Aluno;
 import lombok.AccessLevel;
@@ -14,7 +14,7 @@ public class AlunoMapper {
         return new ModelMapper().map(aluno, AlunoRespostaDto.class);
     }
 
-    public static Aluno toAluno(AlunoCriarDto dto) {
+    public static Aluno toAluno(AlunoCadastrarDto dto) {
         return new ModelMapper().map(dto, Aluno.class);
     }
 }

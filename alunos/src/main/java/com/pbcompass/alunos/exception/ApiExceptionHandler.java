@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(CpfUniqueViolationException.class)
-    public ResponseEntity<MensagemDeErro> cpfUniqueViolationException(CpfUniqueViolationException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new MensagemDeErro(request, HttpStatus.CONFLICT, ex.getMessage()));
+    public ResponseEntity<MensagemDeErroPadrao> cpfUniqueViolationException(CpfUniqueViolationException ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new MensagemDeErroPadrao(request, HttpStatus.CONFLICT, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<MensagemDeErro> methodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemDeErro(request, HttpStatus.UNPROCESSABLE_ENTITY, "Dados de entrada inválidos"));
+    public ResponseEntity<MensagemDeErroPadrao> methodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemDeErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, "Dados de entrada inválidos"));
     }
 }
