@@ -24,4 +24,5 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
+
 }
