@@ -1,7 +1,7 @@
 package com.pbcompass.cursos.dto.mapper;
 
 import com.pbcompass.cursos.dto.ProfessorCriarDto;
-import com.pbcompass.cursos.dto.ProfessorRespotaDto;
+import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.entities.Professor;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public class ProfessorMapper {
         return new ModelMapper().map(dto, Professor.class);
     }
 
-    public static ProfessorRespotaDto toRespostaDto(Professor professor){
-        return new ModelMapper().map(professor, ProfessorRespotaDto.class);
+    public static ProfessorRespostaDto toRespostaDto(Professor professor){
+        return new ModelMapper().map(professor, ProfessorRespostaDto.class);
     }
 }

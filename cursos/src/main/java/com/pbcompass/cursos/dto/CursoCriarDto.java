@@ -1,5 +1,6 @@
 package com.pbcompass.cursos.dto;
 
+import com.pbcompass.cursos.entities.Curso.Area;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProfessorRespotaDto {
+@NoArgsConstructor
+public class CursoCriarDto {
 
-    private Long id;
     private String nome;
+    private Integer quantidadeHoras;
+    private ProfessorRespostaDto professor;
+    private Area area;
 }

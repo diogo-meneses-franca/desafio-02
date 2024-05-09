@@ -1,7 +1,7 @@
 package com.pbcompass.cursos.controller;
 
 import com.pbcompass.cursos.dto.ProfessorCriarDto;
-import com.pbcompass.cursos.dto.ProfessorRespotaDto;
+import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
 import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.service.ProfessorService;
@@ -21,9 +21,9 @@ public class ProfessorController {
     private final ProfessorService service;
 
     @PostMapping
-    public ResponseEntity<ProfessorRespotaDto> cadastrar(@RequestBody ProfessorCriarDto dto) {
+    public ResponseEntity<ProfessorRespostaDto> cadastrar(@RequestBody ProfessorCriarDto dto) {
         Professor professor = ProfessorMapper.toProfessor(dto);
-        ProfessorRespotaDto respostaDto = ProfessorMapper.toRespostaDto(service.cadastrar(professor));
+        ProfessorRespostaDto respostaDto = ProfessorMapper.toRespostaDto(service.cadastrar(professor));
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 }
