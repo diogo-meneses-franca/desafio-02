@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/professores")
@@ -41,5 +43,11 @@ public class ProfessorController {
     public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome){
         Professor professor = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
+    }
+
+    @GetMapping("/buscartodos")
+    public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos(){
+        List<Professor> lista = service.buscarTodos();
+        return ResponseEntity.ok(ProfessorMapper.toListaDto(lista));
     }
 }
