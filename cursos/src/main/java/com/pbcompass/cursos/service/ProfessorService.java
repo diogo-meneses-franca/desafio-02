@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ProfessorService {
@@ -50,4 +52,11 @@ public class ProfessorService {
         professorRepository.save(professor);
         return new ProfessorRespostaDto(id, professor.getNome());
     }
+
+    @Transactional
+    public List<Professor> buscarTodos(){
+        return professorRepository.findAll();
+    }
 }
+
+
