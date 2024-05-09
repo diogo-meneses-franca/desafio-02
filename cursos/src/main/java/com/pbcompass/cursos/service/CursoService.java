@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class CursoService {
@@ -42,5 +44,10 @@ public class CursoService {
         Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
         curso.setAtivo(false);
         cursoRepository.save(curso);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Curso> buscarTodos() {
+        return cursoRepository.findAll();
     }
 }

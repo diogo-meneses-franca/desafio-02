@@ -1,6 +1,5 @@
 package com.pbcompass.cursos.controller;
 
-import com.pbcompass.cursos.dto.CursoCriarDto;
 import com.pbcompass.cursos.dto.ProfessorCriarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
