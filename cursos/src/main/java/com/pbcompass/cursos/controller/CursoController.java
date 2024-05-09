@@ -31,4 +31,11 @@ public class CursoController {
         List<Curso> lista = service.buscarTodos();
         return ResponseEntity.ok(CursoMapper.toListaDto(lista));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CursoRespostaDto> buscarId(@PathVariable long id){
+        Curso curso = service.buscarPorId(id);
+        return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
+    }
+
 }
