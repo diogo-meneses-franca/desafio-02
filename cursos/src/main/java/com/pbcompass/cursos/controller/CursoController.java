@@ -1,6 +1,6 @@
 package com.pbcompass.cursos.controller;
 
-import com.pbcompass.cursos.dto.CursoCriarDto;
+import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
 import com.pbcompass.cursos.entities.Curso;
@@ -20,7 +20,7 @@ public class CursoController {
     private final CursoService service;
 
     @PostMapping
-    public ResponseEntity<CursoRespostaDto> cadastrar(@RequestBody CursoCriarDto dto) {
+    public ResponseEntity<CursoRespostaDto> cadastrar(@RequestBody CursoCadastrarDto dto) {
         Curso curso = CursoMapper.toCurso(dto);
         CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.cadastrar(curso));
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);

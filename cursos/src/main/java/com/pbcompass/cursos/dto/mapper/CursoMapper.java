@@ -1,6 +1,6 @@
 package com.pbcompass.cursos.dto.mapper;
 
-import com.pbcompass.cursos.dto.CursoCriarDto;
+import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.entities.Curso;
 import lombok.AccessLevel;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CursoMapper {
 
-    public static Curso toCurso(CursoCriarDto dto) {
+    public static Curso toCurso(CursoCadastrarDto dto) {
         return new ModelMapper().map(dto, Curso.class);
     }
 
