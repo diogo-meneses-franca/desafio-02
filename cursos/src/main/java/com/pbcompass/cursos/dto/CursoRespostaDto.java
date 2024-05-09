@@ -1,7 +1,6 @@
 package com.pbcompass.cursos.dto;
 
 import com.pbcompass.cursos.entities.Curso.Area;
-import com.pbcompass.cursos.entities.Professor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
