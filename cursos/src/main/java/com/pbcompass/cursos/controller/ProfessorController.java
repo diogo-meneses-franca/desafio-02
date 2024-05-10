@@ -63,7 +63,18 @@ public class ProfessorController {
         Professor professor = service.buscarPorId(id);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
-
+    @Operation(summary = "buscar Professor por nome",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso recuperado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recurso não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            }
+    )
     @GetMapping("/nome/{nome}")
     public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@PathVariable String nome) {
         Professor professor = service.buscarPorNome(nome);
