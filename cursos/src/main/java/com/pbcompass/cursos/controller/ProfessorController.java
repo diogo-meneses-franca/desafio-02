@@ -32,7 +32,7 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "201",
                             description = "Professor cadastrar com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
@@ -46,6 +46,18 @@ public class ProfessorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
+    @Operation(summary = "buscar Professor por id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso recuperado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recurso não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id) {
         Professor professor = service.buscarPorId(id);
