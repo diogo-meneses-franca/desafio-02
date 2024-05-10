@@ -89,7 +89,7 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Recurso recuperado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Recurso não encontrado",
@@ -102,6 +102,22 @@ public class CursoController {
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
 
+    @Operation(summary = "altera qualquer item no curso ",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso alterado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Corpo requisição invalido",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item a atualizar não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            }
+    )
     @PutMapping
     public ResponseEntity<CursoRespostaDto> alterar(@RequestBody CursoRespostaDto respostaDto) {
         Curso curso = CursoMapper.toCurso(respostaDto);
