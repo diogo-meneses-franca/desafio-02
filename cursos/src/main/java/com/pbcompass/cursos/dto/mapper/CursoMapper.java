@@ -17,6 +17,10 @@ public class CursoMapper {
         return new ModelMapper().map(dto, Curso.class);
     }
 
+    public static Curso toCurso(CursoRespostaDto dto) {
+        return new ModelMapper().map(dto, Curso.class);
+    }
+
     public static CursoRespostaDto toRespostaDto(Curso curso) {
         return new ModelMapper().map(curso, CursoRespostaDto.class);
     }

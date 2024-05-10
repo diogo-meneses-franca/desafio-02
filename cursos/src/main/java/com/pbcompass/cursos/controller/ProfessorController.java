@@ -26,25 +26,19 @@ public class ProfessorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
-    @PutMapping("/alterar/{id}")
-    public ResponseEntity<ProfessorRespostaDto> alterar(@PathVariable Long id, @RequestBody ProfessorCadastrarDto dto) {
-        ProfessorRespostaDto respostaDto = service.alterar(id, dto);
-        return ResponseEntity.ok(respostaDto);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id) {
         Professor professor = service.buscarPorId(id);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
-    @GetMapping
-    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome) {
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@PathVariable String nome) {
         Professor professor = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
-    @GetMapping("/buscartodos")
+    @GetMapping
     public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos() {
         List<Professor> lista = service.buscarTodos();
         return ResponseEntity.ok(ProfessorMapper.toListaDto(lista));
