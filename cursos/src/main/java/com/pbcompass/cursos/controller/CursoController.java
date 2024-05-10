@@ -31,13 +31,11 @@ public class CursoController {
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))
-                    ),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
-                    ),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
             }
     )
     @PostMapping
@@ -51,12 +49,10 @@ public class CursoController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))
-                    ),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
                     @ApiResponse(
                             responseCode = "404",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
-                    )
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
             }
     )
     @GetMapping
@@ -65,6 +61,16 @@ public class CursoController {
         return ResponseEntity.ok(CursoMapper.toListaDto(lista));
     }
 
+    @Operation(summary = "buscar curso por id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<CursoRespostaDto> buscarId(@PathVariable long id) {
         Curso curso = service.buscarPorId(id);
