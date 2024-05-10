@@ -1,4 +1,4 @@
-package com.pbcompass.cursos.exceptions.customizadas;
+package com.pbcompass.cursos.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;

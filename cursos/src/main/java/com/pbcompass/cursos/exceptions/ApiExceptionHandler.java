@@ -1,5 +1,7 @@
-package com.pbcompass.cursos.exceptions.customizadas;
+package com.pbcompass.cursos.exceptions;
 
+import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
+import com.pbcompass.cursos.exceptions.customizadas.PersistenceException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,5 +38,10 @@ public class ApiExceptionHandler {
         log.error("Api error ", e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Erro ao salvar", result));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMessage> exception(Exception ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(request, HttpStatus.INTERNAL_SERVER_ERROR, "Ocorreu um erro inesperado, tente novamente mais tarde"));
     }
 }
