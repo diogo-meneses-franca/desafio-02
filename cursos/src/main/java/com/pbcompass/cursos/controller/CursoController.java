@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +83,19 @@ public class CursoController {
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
 
+
+    @Operation(summary = "buscar curso por nome",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso recuperado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recurso não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+            }
+    )
     @GetMapping("/nome/{nome}")
     public ResponseEntity<CursoRespostaDto> buscarPorNome(@PathVariable String nome) {
         Curso curso = service.buscarPorNome(nome);
