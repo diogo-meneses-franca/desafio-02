@@ -3,7 +3,9 @@ package com.pbcompass.cursos.controller;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
+import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
 import com.pbcompass.cursos.entities.Curso;
+import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.service.CursoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,4 +45,12 @@ public class CursoController {
         Curso curso = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
+
+    @PutMapping
+    public ResponseEntity<CursoRespostaDto> alterar(@RequestBody CursoRespostaDto respostaDto) {
+        Curso curso = CursoMapper.toCurso(respostaDto);
+        CursoRespostaDto resposta = CursoMapper.toRespostaDto(service.alterar(curso));
+        return ResponseEntity.ok(resposta);
+    }
+
 }

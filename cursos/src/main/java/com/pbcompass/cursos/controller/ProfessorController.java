@@ -26,12 +26,6 @@ public class ProfessorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
-    @PutMapping("/alterar/{id}")
-    public ResponseEntity<ProfessorRespostaDto> alterar(@PathVariable Long id, @RequestBody ProfessorCadastrarDto dto) {
-        ProfessorRespostaDto respostaDto = service.alterar(id, dto);
-        return ResponseEntity.ok(respostaDto);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ProfessorRespostaDto> buscarPorId(@PathVariable Long id) {
         Professor professor = service.buscarPorId(id);
