@@ -32,13 +32,13 @@ public class ProfessorController {
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
-    @GetMapping
-    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@RequestParam String nome) {
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<ProfessorRespostaDto> buscarPorNome(@PathVariable String nome) {
         Professor professor = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
-    @GetMapping("/buscartodos")
+    @GetMapping
     public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos() {
         List<Professor> lista = service.buscarTodos();
         return ResponseEntity.ok(ProfessorMapper.toListaDto(lista));

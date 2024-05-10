@@ -3,9 +3,7 @@ package com.pbcompass.cursos.controller;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
-import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.service.CursoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +26,7 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
-    @GetMapping("/buscartodos")
+    @GetMapping
     public ResponseEntity<List<CursoRespostaDto>> buscarTodos() {
         List<Curso> lista = service.buscarTodos();
         return ResponseEntity.ok(CursoMapper.toListaDto(lista));
@@ -40,8 +38,8 @@ public class CursoController {
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
 
-    @GetMapping
-    public ResponseEntity<CursoRespostaDto> buscarPorNome(@RequestParam String nome) {
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<CursoRespostaDto> buscarPorNome(@PathVariable String nome) {
         Curso curso = service.buscarPorNome(nome);
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
