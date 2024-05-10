@@ -27,7 +27,7 @@ public class CursoController {
 
     private final CursoService service;
 
-    @Operation(summary = "Cadastrar um novo aluno",
+    @Operation(summary = "Cadastrar um novo curso",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
@@ -40,7 +40,6 @@ public class CursoController {
                     ),
             }
     )
-
     @PostMapping
     public ResponseEntity<CursoRespostaDto> cadastrar(@RequestBody CursoCadastrarDto dto) {
         Curso curso = CursoMapper.toCurso(dto);
@@ -48,6 +47,18 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDto);
     }
 
+    @Operation(summary = "buscar todos os curso",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+    )
     @GetMapping
     public ResponseEntity<List<CursoRespostaDto>> buscarTodos() {
         List<Curso> lista = service.buscarTodos();
