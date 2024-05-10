@@ -4,7 +4,7 @@ import com.pbcompass.cursos.dto.ProfessorCadastrarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.entities.Professor;
-import com.pbcompass.cursos.exceptions.EntityNotFoundException;
+import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.repository.ProfessorRepository;
 import jakarta.persistence.PersistenceException;

@@ -1,4 +1,4 @@
-package com.pbcompass.cursos.exceptions;
+package com.pbcompass.cursos.exceptions.customizadas;
 
 public class EntityNotFoundException extends RuntimeException{
 

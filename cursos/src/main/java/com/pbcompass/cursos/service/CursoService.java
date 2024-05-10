@@ -1,7 +1,7 @@
 package com.pbcompass.cursos.service;
 
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.exceptions.EntityNotFoundException;
+import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
 
 import com.pbcompass.cursos.repository.CursoRepository;
 import jakarta.persistence.PersistenceException;
