@@ -63,6 +63,7 @@ public class ProfessorController {
         Professor professor = service.buscarPorId(id);
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
+
     @Operation(summary = "buscar Professor por nome",
             responses = {
                     @ApiResponse(
@@ -81,6 +82,14 @@ public class ProfessorController {
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
+    @Operation(summary = "buscar todos os professores",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recursos recuperado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class)))
+            }
+    )
     @GetMapping
     public ResponseEntity<List<ProfessorRespostaDto>> buscarTodos() {
         List<Professor> lista = service.buscarTodos();
