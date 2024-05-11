@@ -59,4 +59,19 @@ public class CursoServiceTest {
         assertThatThrownBy(() -> cursoService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
     }
 
+    @Test
+    public void buscarCurso_ComNomeExistente_RetornarCurso() {
+        when(cursoRepository.findByNome(CURSO.getNome())).thenReturn(Optional.of(CURSO));
+        Curso testeCurso = cursoService.buscarPorNome(CURSO.getNome());
+
+        assertThat(testeCurso).isEqualTo(CURSO);
+    }
+
+    @Test
+    public void buscarCurso_ComNomeInexistente_LancarExcecao() {
+        when(cursoRepository.findByNome(CURSO_INVALIDO.getNome())).thenThrow(EntityNotFoundException.class);
+
+        assertThatThrownBy(() -> cursoService.buscarPorNome(CURSO_INVALIDO.getNome())).isInstanceOf(EntityNotFoundException.class);
+    }
+
 }
