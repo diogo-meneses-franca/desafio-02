@@ -55,7 +55,7 @@ public class ProfessorServiceTest {
     public void buscarProfessor_ComIdInexistente_LancarExcecao() {
         when(professorRepository.findById(any())).thenThrow(EntityNotFoundException.class);
 
-        assertThatThrownBy(() -> professorService.buscarPorId(PROFESSOR_INVALIDO.getId())).isInstanceOf(EntityNotFoundException.class);
+        assertThatThrownBy(() -> professorService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
     }
 
 
