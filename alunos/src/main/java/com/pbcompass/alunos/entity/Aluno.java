@@ -34,6 +34,13 @@ public class Aluno implements Serializable {
     @Column(name = "ativo")
     private Boolean ativo;
 
+    public Aluno(String nome, String cpf, LocalDate dataNascimento, String sexo) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
