@@ -1,6 +1,5 @@
 package com.pbcompass.cursos.domain;
 
-import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
 import com.pbcompass.cursos.exceptions.customizadas.PersistenceException;
@@ -14,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.pbcompass.cursos.common.CursoConstantes.CURSO;
 import static com.pbcompass.cursos.common.ProfessorConstantes.PROFESSOR;
 import static com.pbcompass.cursos.common.ProfessorConstantes.PROFESSOR_INVALIDO;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,4 +59,20 @@ public class ProfessorServiceTest {
         assertThatThrownBy(() -> professorService.buscarPorId(PROFESSOR_INVALIDO.getId())).isInstanceOf(EntityNotFoundException.class);
     }
 
+
+    @Test
+    public void buscarProfessor_ComNomeExistente_RetornarProfessor() {
+        when(professorRepository.findByNome(PROFESSOR.getNome())).thenReturn(Optional.of(PROFESSOR));
+        Professor testeProf = professorService.buscarPorNome(PROFESSOR.getNome());
+
+        assertThat(testeProf).isEqualTo(PROFESSOR);
+    }
+
+    @Test
+    public void buscarProfessor_ComNomeInexistente_LancarExcecao() {
+        when(professorRepository.findByNome(any())).thenThrow(EntityNotFoundException.class);
+
+        assertThatThrownBy(() -> professorService.buscarPorNome("PROFESSOR_INEXISTENTE")).isInstanceOf(EntityNotFoundException.class);
+    }
+    
 }
