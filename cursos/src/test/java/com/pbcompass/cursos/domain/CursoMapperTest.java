@@ -6,6 +6,10 @@ import com.pbcompass.cursos.dto.mapper.CursoMapper;
 import com.pbcompass.cursos.entities.Curso;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.pbcompass.cursos.common.CursoMapperConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,6 +53,23 @@ public class CursoMapperTest {
         assertThat(testeCursoDto.getProfessor().getId()).isEqualTo(testeCurso.getProfessor().getId());
         assertThat(testeCursoDto.isAtivo()).isEqualTo(testeCurso.isAtivo());
         assertThat(testeCursoDto.getArea()).isEqualTo(testeCurso.getArea());
+    }
+
+    @Test
+    public void toListaDto_RetornarListaDeCursoRespostaDto() {
+
+        List<CursoRespostaDto> testeList =
+                LIST_CURSO.stream()
+                        .map(CursoMapper::toRespostaDto)
+                        .toList();
+
+        assertThat(testeList.size()).isEqualTo(LIST_CURSO.size());
+        assertThat(testeList.get(0).getId()).isEqualTo(LIST_CURSO.get(0).getId());
+        assertThat(testeList.get(0).getNome()).isEqualTo(LIST_CURSO.get(0).getNome());
+        assertThat(testeList.get(0).getQuantidadeHoras()).isEqualTo(LIST_CURSO.get(0).getQuantidadeHoras());
+        assertThat(testeList.get(0).getProfessor().getId()).isEqualTo(LIST_CURSO.get(0).getProfessor().getId());
+        assertThat(testeList.get(0).getArea()).isEqualTo(LIST_CURSO.get(0).getArea());
+
     }
 
 }
