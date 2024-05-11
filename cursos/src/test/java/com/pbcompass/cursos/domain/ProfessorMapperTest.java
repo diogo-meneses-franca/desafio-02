@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.pbcompass.cursos.common.ProfessorMapperConstantes.*;
+import static com.pbcompass.cursos.common.ProfessorConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfessorMapperTest {
@@ -30,13 +30,13 @@ public class ProfessorMapperTest {
     @Test
     public void toListaDto_RetornarListaDeProfessorRespostaDto() {
         List<ProfessorRespostaDto> testeListProfDto =
-                LIST_PROFESSOR.stream()
+                PROF_LIST.stream()
                         .map(ProfessorMapper::toRespostaDto)
                         .toList();
 
-        assertThat(testeListProfDto.size()).isEqualTo(LIST_PROFESSOR.size());
-        assertThat(testeListProfDto.get(0).getId()).isEqualTo(LIST_PROFESSOR.get(0).getId());
-        assertThat(testeListProfDto.get(0).getNome()).isEqualTo(LIST_PROFESSOR.get(0).getNome());
+        assertThat(testeListProfDto.size()).isEqualTo(PROF_LIST.size());
+        assertThat(testeListProfDto.get(0).getId()).isEqualTo(PROF_LIST.get(0).getId());
+        assertThat(testeListProfDto.get(0).getNome()).isEqualTo(PROF_LIST.get(0).getNome());
     }
 
 }

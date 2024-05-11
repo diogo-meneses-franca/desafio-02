@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.pbcompass.cursos.common.CursoMapperConstantes.*;
+import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CursoMapperTest {
