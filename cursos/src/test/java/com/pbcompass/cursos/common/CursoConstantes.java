@@ -13,7 +13,4 @@ public class CursoConstantes {
 
     public static final List<Curso> LIST_CURSO = new ArrayList<Curso>(Arrays.asList(CURSO));
 
-
-
-
 }

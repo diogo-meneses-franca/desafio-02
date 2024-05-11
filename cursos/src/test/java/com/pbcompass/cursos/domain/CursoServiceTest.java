@@ -82,4 +82,12 @@ public class CursoServiceTest {
         assertThat(cursoService.buscarTodos()).isEqualTo(LIST_CURSO);
     }
 
+    @Test
+    public void alterarCurso_ComDadosValidos_RetornarCurso() {
+        when(cursoRepository.saveAndFlush(CURSO)).thenReturn(CURSO);
+        Curso testeCurso = cursoService.alterar(CURSO);
+
+        assertThat(testeCurso).isEqualTo(CURSO);
+    }
+
 }
