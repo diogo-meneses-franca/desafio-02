@@ -1,7 +1,6 @@
 package com.pbcompass.cursos.service;
 
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
 
 import com.pbcompass.cursos.repository.CursoRepository;
@@ -48,7 +47,11 @@ public class CursoService {
 
     @Transactional(readOnly = true)
     public List<Curso> buscarTodos() {
-        return cursoRepository.findAll();
+        List<Curso> curso = cursoRepository.findAll();
+        if (curso.isEmpty()){
+            throw new EntityNotFoundException("Nenhum curso encontrdo");
+        }
+        return curso;
     }
 
     @Transactional

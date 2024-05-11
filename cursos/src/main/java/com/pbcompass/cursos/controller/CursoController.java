@@ -50,7 +50,11 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Recursos recuperado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Nenhum registro encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
             }
     )
     @GetMapping
