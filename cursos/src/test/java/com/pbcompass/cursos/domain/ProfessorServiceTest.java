@@ -13,8 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.pbcompass.cursos.common.ProfessorConstantes.PROFESSOR;
-import static com.pbcompass.cursos.common.ProfessorConstantes.PROFESSOR_INVALIDO;
+import static com.pbcompass.cursos.common.ProfessorConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -74,5 +73,11 @@ public class ProfessorServiceTest {
 
         assertThatThrownBy(() -> professorService.buscarPorNome("PROFESSOR_INEXISTENTE")).isInstanceOf(EntityNotFoundException.class);
     }
-    
+
+    @Test
+    public void buscarTodosOsProfessores_SemParametros_RetornarListaDeProfessores() {
+        when(professorRepository.findAll()).thenReturn(PROF_LIST);
+
+        assertThat(professorService.buscarTodos()).isEqualTo(PROF_LIST);
+    }
 }
