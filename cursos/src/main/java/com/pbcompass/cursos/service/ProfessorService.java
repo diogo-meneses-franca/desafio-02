@@ -1,11 +1,7 @@
 package com.pbcompass.cursos.service;
 
-import com.pbcompass.cursos.dto.ProfessorCadastrarDto;
-import com.pbcompass.cursos.dto.ProfessorRespostaDto;
-import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
-import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.repository.ProfessorRepository;
 import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +15,6 @@ import java.util.List;
 public class ProfessorService {
 
     private final ProfessorRepository professorRepository;
-    private final CursoRepository cursoRepository;
 
     @Transactional
     public Professor cadastrar(Professor professor){
@@ -43,19 +38,17 @@ public class ProfessorService {
     }
 
     @Transactional
-    public ProfessorRespostaDto alterar(Long id, ProfessorCadastrarDto dto) {
-        Curso curso = cursoRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Professor não está associado a nenhum curso"));
-        Professor professor = professorRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Professor não encontrado"));
-        professor.setNome(dto.getNome());
-        professorRepository.save(professor);
-        return new ProfessorRespostaDto(id, professor.getNome());
+    public Professor alterar(Professor professor) {
+        return professorRepository.saveAndFlush(professor);
     }
 
     @Transactional(readOnly = true)
-    public List<Professor> buscarTodos(){
-        return professorRepository.findAll();
+    public List<Professor> buscarTodos() {
+        List<Professor> professores = professorRepository.findAll();
+        if (professores.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum professor encontrado.");
+        }
+        return professores;
     }
 }
 
