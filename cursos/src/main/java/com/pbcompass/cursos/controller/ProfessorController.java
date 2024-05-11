@@ -1,6 +1,5 @@
 package com.pbcompass.cursos.controller;
 
-import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.ProfessorCadastrarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
@@ -31,7 +30,7 @@ public class ProfessorController {
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            description = "Professor cadastrar com sucesso",
+                            description = "Professor cadastrado com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
                     @ApiResponse(
                             responseCode = "422",
@@ -82,12 +81,39 @@ public class ProfessorController {
         return ResponseEntity.ok().body(ProfessorMapper.toRespostaDto(professor));
     }
 
+    @Operation(summary = "altera qualquer item no professor ",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso alterado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Corpo requisição invalido",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item a atualizar não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            }
+    )
+    @PutMapping
+    public ResponseEntity<ProfessorRespostaDto> alterar(@RequestBody ProfessorCadastrarDto respostaDto) {
+        Professor professor = ProfessorMapper.toProfessor(respostaDto);
+        ProfessorRespostaDto resposta = ProfessorMapper.toRespostaDto(service.alterar(professor));
+        return ResponseEntity.ok(resposta);
+    }
+
     @Operation(summary = "buscar todos os professores",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Recursos recuperado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfessorRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Nenhum registro encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
             }
     )
     @GetMapping
