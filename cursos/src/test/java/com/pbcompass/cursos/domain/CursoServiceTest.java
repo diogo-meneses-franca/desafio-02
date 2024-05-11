@@ -11,12 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
-import static com.pbcompass.cursos.common.CursoConstantes.CURSO;
-import static com.pbcompass.cursos.common.CursoConstantes.CURSO_INVALIDO;
+import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -72,6 +73,13 @@ public class CursoServiceTest {
         when(cursoRepository.findByNome(CURSO_INVALIDO.getNome())).thenThrow(EntityNotFoundException.class);
 
         assertThatThrownBy(() -> cursoService.buscarPorNome(CURSO_INVALIDO.getNome())).isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    public void buscarTodosOsCursos_SemParametros_RetornarListaDeCursos() {
+        when(cursoRepository.findAll()).thenReturn(LIST_CURSO);
+
+        assertThat(cursoService.buscarTodos()).isEqualTo(LIST_CURSO);
     }
 
 }
