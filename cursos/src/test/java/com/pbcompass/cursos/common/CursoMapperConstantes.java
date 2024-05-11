@@ -4,6 +4,7 @@ import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.entities.Curso;
+import com.pbcompass.cursos.entities.Professor;
 
 public class CursoMapperConstantes {
 
@@ -14,5 +15,9 @@ public class CursoMapperConstantes {
     public static final CursoRespostaDto CURSO_RESPOSTA_DTO =
             new CursoRespostaDto(1L, "Marcos", 80,
                     new ProfessorRespostaDto(1l, "PROFESSOR"), true, Curso.Area.TECNOLOGIAS);
+
+    public static final Curso CURSO =
+            new Curso(1L, "Marcos", 80,
+                    new Professor(1L, "PROFESSOR"), true, Curso.Area.TECNOLOGIAS);
 
 }

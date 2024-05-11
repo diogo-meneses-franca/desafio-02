@@ -6,8 +6,7 @@ import com.pbcompass.cursos.dto.mapper.CursoMapper;
 import com.pbcompass.cursos.entities.Curso;
 import org.junit.jupiter.api.Test;
 
-import static com.pbcompass.cursos.common.CursoMapperConstantes.CURSO_CADASTRAR_DTO;
-import static com.pbcompass.cursos.common.CursoMapperConstantes.CURSO_RESPOSTA_DTO;
+import static com.pbcompass.cursos.common.CursoMapperConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CursoMapperTest {
@@ -36,6 +35,20 @@ public class CursoMapperTest {
         assertThat(testeCurso.getProfessor().getId()).isEqualTo(testeCursoDto.getProfessor().getId());
         assertThat(testeCurso.isAtivo()).isEqualTo(testeCursoDto.isAtivo());
         assertThat(testeCurso.getArea()).isEqualTo(testeCursoDto.getArea());
+    }
+
+    @Test
+    public void toRespostaDto_RetornarCurso() {
+        Curso testeCurso = CURSO;
+
+        CursoRespostaDto testeCursoDto = CursoMapper.toRespostaDto(testeCurso);
+
+        assertThat(testeCursoDto.getId()).isEqualTo(testeCurso.getId());
+        assertThat(testeCursoDto.getNome()).isEqualTo(testeCurso.getNome());
+        assertThat(testeCursoDto.getQuantidadeHoras()).isEqualTo(testeCurso.getQuantidadeHoras());
+        assertThat(testeCursoDto.getProfessor().getId()).isEqualTo(testeCurso.getProfessor().getId());
+        assertThat(testeCursoDto.isAtivo()).isEqualTo(testeCurso.isAtivo());
+        assertThat(testeCursoDto.getArea()).isEqualTo(testeCurso.getArea());
     }
 
 }
