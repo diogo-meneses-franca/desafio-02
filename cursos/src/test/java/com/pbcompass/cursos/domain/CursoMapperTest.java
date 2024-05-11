@@ -6,9 +6,7 @@ import com.pbcompass.cursos.dto.mapper.CursoMapper;
 import com.pbcompass.cursos.entities.Curso;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.pbcompass.cursos.common.CursoMapperConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
