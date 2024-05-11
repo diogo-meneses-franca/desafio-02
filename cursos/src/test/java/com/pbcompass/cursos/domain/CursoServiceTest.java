@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static com.pbcompass.cursos.common.CursoConstantes.CURSO;
+import static com.pbcompass.cursos.common.CursoConstantes.CURSO_INVALIDO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +39,7 @@ public class CursoServiceTest {
 
     @Test
     public void cadastrarCurso_ComDadosInvalidos_LancarExcecao() {
-        when(cursoRepository.save(CURSO)).thenThrow(PersistenceException.class);
+        when(cursoRepository.save(CURSO_INVALIDO)).thenThrow(PersistenceException.class);
 
         assertThatThrownBy(() -> cursoService.cadastrar(CURSO)).isInstanceOf(PersistenceException.class);
     }
