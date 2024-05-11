@@ -40,7 +40,7 @@ public class CursoMapperTest {
     }
 
     @Test
-    public void toRespostaDto_RetornarCurso() {
+    public void toRespostaDto_RetornarCursoRespostaDto() {
         Curso testeCurso = CURSO;
 
         CursoRespostaDto testeCursoDto = CursoMapper.toRespostaDto(testeCurso);
