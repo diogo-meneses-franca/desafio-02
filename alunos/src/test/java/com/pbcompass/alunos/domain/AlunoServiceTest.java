@@ -1,6 +1,7 @@
 package com.pbcompass.alunos.domain;
 
 import com.pbcompass.alunos.entity.Aluno;
+import com.pbcompass.alunos.exception.AlunoMatriculadoException;
 import com.pbcompass.alunos.exception.CpfUnicoException;
 import com.pbcompass.alunos.repository.AlunoRepository;
 import com.pbcompass.alunos.service.AlunoService;
@@ -13,8 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.pbcompass.alunos.common.AlunoConstantes.ALUNO;
-import static com.pbcompass.alunos.common.AlunoConstantes.ALUNO_INVALIDO;
+import static com.pbcompass.alunos.common.AlunoConstantes.*;
+import static com.pbcompass.alunos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -55,6 +56,15 @@ public class AlunoServiceTest {
         when(alunoRepository.findById(99L)).thenThrow(EntityNotFoundException.class);
 
         assertThatThrownBy(() -> alunoService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    public void matricularAluno_EmCursoNaoMatriculado_RetornarAluno() {
+        when(alunoRepository.findById(ALUNO.getId())).thenReturn(Optional.of(ALUNO));
+        alunoService.matricular(ALUNO.getId(), CURSO_MATRICULAR_DTO);
+
+        assertThat(ALUNO.getMatriculas().size()).isEqualTo(1);
+        assertThat(ALUNO.getMatriculas().stream().findFirst().get().getCursoId()).isEqualTo(CURSO_MATRICULAR_DTO.getCursoId());
     }
 
     @Test
