@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlunoMatricularDto {
+public class AlunoDto {
 
-    private Long alunoId;
-    private Boolean ativo;
+    private Long id;
 }

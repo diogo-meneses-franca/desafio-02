@@ -1,6 +1,6 @@
 package com.pbcompass.cursos.controller;
 
-import com.pbcompass.cursos.dto.AlunoMatricularDto;
+import com.pbcompass.cursos.dto.AlunoDto;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
@@ -126,10 +126,16 @@ public class CursoController {
     }
 
     @PutMapping("/matricular/{cursoId}")
-    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestBody AlunoMatricularDto dto){
+    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestBody AlunoDto dto){
         Curso curso = service.matricular(cursoId, dto);
         CursoRespostaDto resposta = CursoMapper.toRespostaDto(curso);
         return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("/inativar-matricula/{cursoId}")
+    public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestBody AlunoDto dto){
+        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, dto));
+        return ResponseEntity.ok().body(respostaDto);
     }
 
 }

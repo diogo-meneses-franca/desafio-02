@@ -1,6 +1,6 @@
 package com.pbcompass.cursos.service;
 
-import com.pbcompass.cursos.dto.AlunoMatricularDto;
+import com.pbcompass.cursos.dto.AlunoDto;
 import com.pbcompass.cursos.entities.Aluno;
 import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.exceptions.customizadas.CursoInativoException;
@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -58,7 +60,7 @@ public class CursoService {
     }
 
     @Transactional
-    public Curso matricular(Long cursoId, AlunoMatricularDto dto) {
+    public Curso matricular(Long cursoId, AlunoDto dto) {
         Curso curso = buscarPorId(cursoId);
         if(!curso.isAtivo()){
             throw new CursoInativoException("Este curso encontra-se inativo");
@@ -67,15 +69,37 @@ public class CursoService {
             throw new LimiteMatriculasAtingidoException("Não há mais vagas disponíveis neste curso");
         }
         curso.getAlunos().forEach(obj -> {
-            if(obj.getAlunoId().equals(dto.getAlunoId())){
+            if(obj.getAlunoId().equals(dto.getId())){
                 throw new AlunoMatriculadoException("Aluno ja está matriculado neste curso");
             }
         });
         Aluno aluno = new Aluno();
-        aluno.setAlunoId(dto.getAlunoId());
+        aluno.setAlunoId(dto.getId());
         aluno.setCurso(curso);
+        aluno.setAtivo(true);
         curso.getAlunos().add(aluno);
         curso.setTotalAlunos(curso.getTotalAlunos() + 1);
         return cursoRepository.save(curso);
+    }
+
+    @Transactional
+    public Curso inativarMatricula(Long cursoId, AlunoDto dto){
+        Curso curso = buscarPorId(cursoId);
+        boolean contemAluno = false;
+        for(Aluno aluno : curso.getAlunos()){
+            if(aluno.getAlunoId().equals(dto.getId())){
+                contemAluno = true;
+            }
+        }
+        if(contemAluno){
+            Set<Aluno> alunos = curso.getAlunos().stream().peek(aluno -> {
+                if(aluno.getAlunoId().equals(dto.getId())){
+                    aluno.setAtivo(false);
+                }
+            }).collect(Collectors.toSet());
+            curso.setAlunos(alunos);
+            return cursoRepository.save(curso);
+        }
+        throw new EntityNotFoundException("Aluno não matriculado neste curso");
     }
 }
