@@ -1,8 +1,8 @@
 package com.pbcompass.alunos.exception;
 
-public class FalhaAoMatricularAlunoException extends RuntimeException {
+public class ErroMatricularAlunoException extends RuntimeException {
 
-    public FalhaAoMatricularAlunoException(String mensagem) {
+    public ErroMatricularAlunoException(String mensagem) {
         super(mensagem);
     }
 }
