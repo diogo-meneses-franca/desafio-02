@@ -42,7 +42,8 @@ public class Aluno implements Serializable {
     @Column(name = "ativo")
     private Boolean ativo;
 
-    public Aluno(String nome, String cpf, LocalDate dataNascimento, String sexo) {
+    public Aluno(Long id, String nome, String cpf, LocalDate dataNascimento, String sexo) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;

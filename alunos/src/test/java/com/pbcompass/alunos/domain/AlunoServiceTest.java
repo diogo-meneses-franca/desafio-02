@@ -4,11 +4,14 @@ import com.pbcompass.alunos.entity.Aluno;
 import com.pbcompass.alunos.exception.CpfUnicoException;
 import com.pbcompass.alunos.repository.AlunoRepository;
 import com.pbcompass.alunos.service.AlunoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 import static com.pbcompass.alunos.common.AlunoConstantes.ALUNO;
 import static com.pbcompass.alunos.common.AlunoConstantes.ALUNO_INVALIDO;
