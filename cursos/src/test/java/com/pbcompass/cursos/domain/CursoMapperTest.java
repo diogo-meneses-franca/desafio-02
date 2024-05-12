@@ -12,7 +12,7 @@ import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CursoMapperTest {
-    /*
+
     @Test
     public void toCurso_ComCursoCadastrarDto_RetornarCurso() {
         CursoCadastrarDto testeCursoDto = CURSO_CADASTRAR_DTO;
@@ -21,7 +21,7 @@ public class CursoMapperTest {
 
         assertThat(testeCurso.getNome()).isEqualTo(testeCursoDto.getNome());
         assertThat(testeCurso.getQuantidadeHoras()).isEqualTo(testeCursoDto.getQuantidadeHoras());
-        assertThat(testeCurso.getProfessor().getId()).isEqualTo(testeCursoDto.getProfessor().getId());
+        assertThat(testeCurso.getProfessor().getId()).isEqualTo(testeCursoDto.getProfessor().getProfessorId());
         assertThat(testeCurso.getArea()).isEqualTo(testeCursoDto.getArea());
     }
 
@@ -37,6 +37,8 @@ public class CursoMapperTest {
         assertThat(testeCurso.getProfessor().getId()).isEqualTo(testeCursoDto.getProfessor().getId());
         assertThat(testeCurso.isAtivo()).isEqualTo(testeCursoDto.isAtivo());
         assertThat(testeCurso.getArea()).isEqualTo(testeCursoDto.getArea());
+        assertThat(testeCurso.getTotalAlunos()).isEqualTo(testeCursoDto.getTotalAlunos());
+        assertThat(testeCurso.getAlunos()).isEqualTo(testeCursoDto.getAlunos());
     }
 
     @Test
@@ -51,6 +53,8 @@ public class CursoMapperTest {
         assertThat(testeCursoDto.getProfessor().getId()).isEqualTo(testeCurso.getProfessor().getId());
         assertThat(testeCursoDto.isAtivo()).isEqualTo(testeCurso.isAtivo());
         assertThat(testeCursoDto.getArea()).isEqualTo(testeCurso.getArea());
+        assertThat(testeCursoDto.getTotalAlunos()).isEqualTo(testeCurso.getTotalAlunos());
+        assertThat(testeCursoDto.getAlunos()).isEqualTo(testeCurso.getAlunos());
     }
 
     @Test
@@ -66,8 +70,10 @@ public class CursoMapperTest {
         assertThat(testeList.get(0).getNome()).isEqualTo(LIST_CURSO.get(0).getNome());
         assertThat(testeList.get(0).getQuantidadeHoras()).isEqualTo(LIST_CURSO.get(0).getQuantidadeHoras());
         assertThat(testeList.get(0).getProfessor().getId()).isEqualTo(LIST_CURSO.get(0).getProfessor().getId());
-        assertThat(testeList.get(0).getArea()).isEqualTo(LIST_CURSO.get(0).getArea());
+        assertThat(testeList.get(0).isAtivo()).isEqualTo(LIST_CURSO.get(0).isAtivo());
+        assertThat(testeList.get(0).getTotalAlunos()).isEqualTo(LIST_CURSO.get(0).getTotalAlunos());
+        assertThat(testeList.get(0).getAlunos()).isEqualTo(LIST_CURSO.get(0).getAlunos());
 
     }
-    */
+
 }
