@@ -13,6 +13,5 @@ import lombok.Setter;
 public class AlunoMatricularDto {
 
     @NotBlank
-    private Long alunoId;
-    private boolean ativo;
+    private Long id;
 }

@@ -2,7 +2,8 @@ package com.pbcompass.alunos.controller;
 
 import com.pbcompass.alunos.dto.*;
 import com.pbcompass.alunos.entity.Aluno;
-import com.pbcompass.alunos.exception.FalhaAoMatricularAlunoException;
+import com.pbcompass.alunos.exception.ErroInativarMatriculaException;
+import com.pbcompass.alunos.exception.ErroMatricularAlunoException;
 import com.pbcompass.alunos.exception.MensagemErroPadrao;
 import com.pbcompass.alunos.feignClients.CursoFeign;
 import com.pbcompass.alunos.mapper.AlunoMapper;
@@ -69,6 +70,16 @@ public class AlunoController {
     @PutMapping("/inativar/{id}")
     public ResponseEntity<AlunoRespostaDto> inativar(@PathVariable Long id){
         AlunoRespostaDto aluno = AlunoMapper.toRespostaDto(alunoService.inativar(id));
+        try {
+            aluno.getMatriculas().forEach(curso -> {
+                cursoFeign.inativarMatricula(curso.getId(), new AlunoMatricularDto(aluno.getId()));
+            });
+            Set<CursoRespostaDto> cursos = aluno.getMatriculas().stream().map(curso ->
+                    cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
+            aluno.setMatriculas(cursos);
+        }catch (FeignException e){
+            throw new ErroInativarMatriculaException(e.getMessage());
+        }
         return ResponseEntity.ok().body(aluno);
     }
 
@@ -77,7 +88,7 @@ public class AlunoController {
         Aluno aluno = alunoService.buscarPorId(alunoId);
         if (aluno.getAtivo()) {
             try {
-                AlunoMatricularDto matriculaDto = new AlunoMatricularDto(alunoId, true);
+                AlunoMatricularDto matriculaDto = new AlunoMatricularDto(alunoId);
                 HttpStatusCode status = cursoFeign.matricular(dto.getCursoId(), matriculaDto).getStatusCode();
                 if (status == HttpStatus.OK) {
                     Aluno matricular = alunoService.matricular(alunoId, dto);
@@ -87,9 +98,9 @@ public class AlunoController {
                     return ResponseEntity.status(HttpStatus.OK).body(resposta);
                 }
             } catch (FeignException e) {
-                throw new FalhaAoMatricularAlunoException(e.getMessage());
+                throw new ErroMatricularAlunoException(e.getMessage());
             }
         }
-        throw new FalhaAoMatricularAlunoException("Alunos inativos não podem realizar matriculas");
+        throw new ErroMatricularAlunoException("Alunos inativos não podem realizar matriculas");
     }
 }

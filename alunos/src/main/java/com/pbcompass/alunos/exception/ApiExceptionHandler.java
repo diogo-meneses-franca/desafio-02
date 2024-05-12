@@ -33,13 +33,18 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
     }
 
-    @ExceptionHandler(FalhaAoMatricularAlunoException.class)
-    public ResponseEntity<MensagemErroPadrao> falhaAoMatricularAlunoException(FalhaAoMatricularAlunoException ex, HttpServletRequest request) {
+    @ExceptionHandler(ErroMatricularAlunoException.class)
+    public ResponseEntity<MensagemErroPadrao> falhaAoMatricularAlunoException(ErroMatricularAlunoException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<MensagemErroPadrao> entityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErroPadrao(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+    }
+
+    @ExceptionHandler(ErroInativarMatriculaException.class)
+    public ResponseEntity<MensagemErroPadrao> erroInativarMatriculaException(ErroInativarMatriculaException ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
     }
 }

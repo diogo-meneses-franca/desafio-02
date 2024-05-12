@@ -18,4 +18,6 @@ public interface CursoFeign {
     @PutMapping("/api/cursos/matricular/{cursoId}")
     ResponseEntity<CursoRespostaDto> matricular(@PathVariable("cursoId") Long cursoId, @RequestBody AlunoMatricularDto dto);
 
+    @PutMapping("/api/cursos/inativar-matricula/{cursoId}")
+    ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable("cursoId") Long cursoId, @RequestBody AlunoMatricularDto dto);
 }
