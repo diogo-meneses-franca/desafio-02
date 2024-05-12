@@ -2,7 +2,7 @@ package com.pbcompass.alunos;
 
 import com.pbcompass.alunos.dto.AlunoCadastrarDto;
 import com.pbcompass.alunos.dto.AlunoRespostaDto;
-import com.pbcompass.alunos.exception.MensagemDeErroPadrao;
+import com.pbcompass.alunos.exception.MensagemErroPadrao;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +40,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComCpfJaCadastrado_RetornaMensagemDeErroPadraoComStatus409(){
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("Carlos", "35211170229", LocalDate.of(1986, 5, 26), "M"))
                 .exchange()
                 .expectStatus().isEqualTo(409)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -56,13 +56,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComDadosInvalidos_RetornaMensagemDeErroPadraoComStatus422(){
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("", "", LocalDate.of(1986, 5, 26), ""))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -72,13 +72,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComCpfSomenteZeros_RetornaMensagemDeErroPadraoComStatus422() {
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("Carlos", "00000000000", LocalDate.of(1986, 5, 26), "M"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -88,13 +88,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComCpfEmBranco_RetornaMensagemDeErroPadraoComStatus422() {
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("Carlos", "", LocalDate.of(1986, 5, 26), "M"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -104,13 +104,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComCpfDeTamanhoInvalido_RetornaMensagemDeErroPadraoComStatus422() {
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("Carlos", "988155530292", LocalDate.of(1986, 5, 26), "M"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -120,13 +120,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComSexoEmBranco_RetornaMensagemDeErroPadraoComStatus422() {
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("Carlos", "98815553029", LocalDate.of(1986, 5, 26), ""))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();
@@ -136,13 +136,13 @@ public class AlunoIT {
 
     @Test
     public void cadastrarAluno_ComNomeEmBranco_RetornaMensagemDeErroPadraoComStatus422() {
-        MensagemDeErroPadrao resposta = testClient.post()
+        MensagemErroPadrao resposta = testClient.post()
                 .uri("/api/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new AlunoCadastrarDto("", "98815553029", LocalDate.of(1986, 5, 26), "M"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(MensagemDeErroPadrao.class)
+                .expectBody(MensagemErroPadrao.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(resposta).isNotNull();

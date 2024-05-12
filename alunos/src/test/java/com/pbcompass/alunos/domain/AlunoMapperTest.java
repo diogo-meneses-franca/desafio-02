@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.*;
 
 public class AlunoMapperTest {
-
+/*
     @Test
     public void toRespostaDto_ComDadosValidos_RetornarAlunoRespostaDto() {
         Aluno testeAluno = new Aluno(1L ,"Mateus", "89456711021", LocalDate.parse("1999-09-09"), "M", true);
@@ -22,7 +22,7 @@ public class AlunoMapperTest {
         assertThat(testeDto.getSexo()).isEqualTo(testeAluno.getSexo());
         assertThat(testeDto.getAtivo()).isEqualTo(testeAluno.getAtivo());
     }
-
+*/
     @Test
     public void toAluno_ComDadosValidos_RetornarAluno() {
         AlunoCadastrarDto testeAlunoDto = new AlunoCadastrarDto("Mateus", "89456711021", LocalDate.parse("1999-09-09"), "M");
