@@ -42,4 +42,19 @@ public class AlunoServiceTest {
         assertThatThrownBy(() -> alunoService.cadastrar(ALUNO_INVALIDO)).isInstanceOf(CpfUnicoException.class);
     }
 
+    @Test
+    public void buscarAluno_ComIdExistente_RetornarAluno() {
+        when(alunoRepository.findById(ALUNO.getId())).thenReturn(Optional.of(ALUNO));
+        Aluno testeAluno = alunoService.buscarPorId(1L);
+
+        assertThat(testeAluno).isEqualTo(ALUNO);
+    }
+
+    @Test
+    public void buscarAluno_ComIdInexistente_LancarExcecao() {
+        when(alunoRepository.findById(99L)).thenThrow(EntityNotFoundException.class);
+
+        assertThatThrownBy(() -> alunoService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
+    }
+
 }
