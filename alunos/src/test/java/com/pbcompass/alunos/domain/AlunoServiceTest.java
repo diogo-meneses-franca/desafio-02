@@ -1,7 +1,7 @@
 package com.pbcompass.alunos.domain;
 
 import com.pbcompass.alunos.entity.Aluno;
-import com.pbcompass.alunos.exception.CpfUniqueViolationException;
+import com.pbcompass.alunos.exception.CpfUnicoException;
 import com.pbcompass.alunos.repository.AlunoRepository;
 import com.pbcompass.alunos.service.AlunoService;
 import org.junit.jupiter.api.Test;
@@ -34,9 +34,9 @@ public class AlunoServiceTest {
 
     @Test
     public void cadastrarAluno_ComDadosInvalidos_LancarExcecao() {
-        when(alunoService.cadastrar(ALUNO_INVALIDO)).thenThrow(CpfUniqueViolationException.class);
+        when(alunoService.cadastrar(ALUNO_INVALIDO)).thenThrow(CpfUnicoException.class);
 
-        assertThatThrownBy(() -> alunoService.cadastrar(ALUNO_INVALIDO)).isInstanceOf(CpfUniqueViolationException.class);
+        assertThatThrownBy(() -> alunoService.cadastrar(ALUNO_INVALIDO)).isInstanceOf(CpfUnicoException.class);
     }
 
 }

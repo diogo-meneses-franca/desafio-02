@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "alunos")
@@ -13,12 +13,16 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Aluno implements Serializable {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ToString.Include
     @Column(name = "nome", nullable = false, length = 150)
     private String nome;
 
@@ -31,6 +35,10 @@ public class Aluno implements Serializable {
     @Column(name = "sexo", length = 1)
     private String sexo;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @JoinColumn(name = "aluno_curso")
+    private Set<Curso> matriculas = new HashSet<>();
+
     @Column(name = "ativo")
     private Boolean ativo;
 
@@ -39,27 +47,5 @@ public class Aluno implements Serializable {
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Aluno aluno = (Aluno) o;
-        return Objects.equals(id, aluno.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Aluno{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                '}';
     }
 }

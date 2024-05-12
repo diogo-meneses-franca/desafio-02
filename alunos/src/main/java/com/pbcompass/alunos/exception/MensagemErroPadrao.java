@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @Getter
 @ToString
-public class MensagemDeErroPadrao {
+public class MensagemErroPadrao {
 
     private String path;
     private String method;
@@ -17,7 +17,7 @@ public class MensagemDeErroPadrao {
     private String statusMensagem;
     private String mensagem;
 
-    public MensagemDeErroPadrao(HttpServletRequest request, HttpStatus status, String mensagem) {
+    public MensagemErroPadrao(HttpServletRequest request, HttpStatus status, String mensagem) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
