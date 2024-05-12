@@ -4,7 +4,7 @@ import com.pbcompass.cursos.dto.ProfessorCadastrarDto;
 import com.pbcompass.cursos.dto.ProfessorRespostaDto;
 import com.pbcompass.cursos.dto.mapper.ProfessorMapper;
 import com.pbcompass.cursos.entities.Professor;
-import com.pbcompass.cursos.exceptions.ErrorMessage;
+import com.pbcompass.cursos.exceptions.MensagemErroPadrao;
 import com.pbcompass.cursos.service.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,7 +35,7 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
     @PostMapping
@@ -54,7 +54,7 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Recurso não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class)))
             }
     )
     @GetMapping("/{id}")
@@ -72,7 +72,7 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Recurso não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class)))
             }
     )
     @GetMapping("/nome/{nome}")
@@ -90,11 +90,11 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "400",
                             description = "Corpo requisição invalido",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Item a atualizar não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
     @PutMapping
@@ -113,7 +113,7 @@ public class ProfessorController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Nenhum registro encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
     @GetMapping

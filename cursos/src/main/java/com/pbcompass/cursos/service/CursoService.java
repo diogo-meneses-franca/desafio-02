@@ -1,10 +1,13 @@
 package com.pbcompass.cursos.service;
 
+import com.pbcompass.cursos.dto.AlunoMatricularDto;
+import com.pbcompass.cursos.entities.Aluno;
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
-
+import com.pbcompass.cursos.exceptions.customizadas.CursoInativoException;
+import com.pbcompass.cursos.exceptions.customizadas.LimiteMatriculasAtingidoException;
+import com.pbcompass.cursos.exceptions.customizadas.AlunoMatriculadoException;
 import com.pbcompass.cursos.repository.CursoRepository;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +19,12 @@ import java.util.List;
 public class CursoService {
 
     private final CursoRepository cursoRepository;
+    private final ProfessorService professorService;
 
     @Transactional
     public Curso cadastrar(Curso curso){
-        try{
-            return cursoRepository.save(curso);
-        } catch (PersistenceException e) {
-            throw new PersistenceException("Erro ao salvar curso.");
-        }
+        curso.setProfessor(professorService.buscarPorId(curso.getProfessor().getId()));
+        return cursoRepository.save(curso);
     }
 
     @Transactional(readOnly = true)
@@ -48,14 +49,33 @@ public class CursoService {
     @Transactional(readOnly = true)
     public List<Curso> buscarTodos() {
         List<Curso> curso = cursoRepository.findAll();
-        if (curso.isEmpty()){
-            throw new EntityNotFoundException("Nenhum curso encontrdo");
-        }
         return curso;
     }
 
     @Transactional
     public Curso alterar(Curso curso) {
         return cursoRepository.saveAndFlush(curso);
+    }
+
+    @Transactional
+    public Curso matricular(Long cursoId, AlunoMatricularDto dto) {
+        Curso curso = buscarPorId(cursoId);
+        if(!curso.isAtivo()){
+            throw new CursoInativoException("Este curso encontra-se inativo");
+        }
+        if (curso.getAlunos().size() >= 10){
+            throw new LimiteMatriculasAtingidoException("Não há mais vagas disponíveis neste curso");
+        }
+        curso.getAlunos().forEach(obj -> {
+            if(obj.getAlunoId().equals(dto.getAlunoId())){
+                throw new AlunoMatriculadoException("Aluno ja está matriculado neste curso");
+            }
+        });
+        Aluno aluno = new Aluno();
+        aluno.setAlunoId(dto.getAlunoId());
+        aluno.setCurso(curso);
+        curso.getAlunos().add(aluno);
+        curso.setTotalAlunos(curso.getTotalAlunos() + 1);
+        return cursoRepository.save(curso);
     }
 }

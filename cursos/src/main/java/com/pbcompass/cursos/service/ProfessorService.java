@@ -1,10 +1,11 @@
 package com.pbcompass.cursos.service;
 
 import com.pbcompass.cursos.entities.Professor;
-import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
+import com.pbcompass.cursos.exceptions.customizadas.DadosDeCadastroInvalidosException;
 import com.pbcompass.cursos.repository.ProfessorRepository;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,10 @@ public class ProfessorService {
 
     @Transactional
     public Professor cadastrar(Professor professor){
-        try{
+        try {
             return professorRepository.save(professor);
-        } catch (PersistenceException e) {
-            throw new PersistenceException("Erro ao salvar dados.");
+        }catch (DataIntegrityViolationException e){
+            throw new DadosDeCadastroInvalidosException("Nome do professor não pode ser null");
         }
     }
 

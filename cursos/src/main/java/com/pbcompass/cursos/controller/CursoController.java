@@ -1,10 +1,11 @@
 package com.pbcompass.cursos.controller;
 
+import com.pbcompass.cursos.dto.AlunoMatricularDto;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
 import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.exceptions.ErrorMessage;
+import com.pbcompass.cursos.exceptions.MensagemErroPadrao;
 import com.pbcompass.cursos.service.CursoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,7 +36,7 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
     @PostMapping
@@ -54,7 +55,7 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Nenhum registro encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
     @GetMapping
@@ -72,11 +73,11 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Recurso não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class)))
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<CursoRespostaDto> buscarId(@PathVariable long id) {
+    public ResponseEntity<CursoRespostaDto> buscarPorId(@PathVariable long id) {
         Curso curso = service.buscarPorId(id);
         return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
     }
@@ -91,7 +92,7 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Recurso não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class)))
             }
     )
     @GetMapping("/nome/{nome}")
@@ -109,17 +110,25 @@ public class CursoController {
                     @ApiResponse(
                             responseCode = "400",
                             description = "Corpo requisição invalido",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Item a atualizar não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
             }
     )
+
     @PutMapping
     public ResponseEntity<CursoRespostaDto> alterar(@RequestBody CursoRespostaDto respostaDto) {
         Curso curso = CursoMapper.toCurso(respostaDto);
         CursoRespostaDto resposta = CursoMapper.toRespostaDto(service.alterar(curso));
+        return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("/matricular/{cursoId}")
+    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestBody AlunoMatricularDto dto){
+        Curso curso = service.matricular(cursoId, dto);
+        CursoRespostaDto resposta = CursoMapper.toRespostaDto(curso);
         return ResponseEntity.ok(resposta);
     }
 

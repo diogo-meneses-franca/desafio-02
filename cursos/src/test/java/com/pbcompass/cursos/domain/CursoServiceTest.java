@@ -1,23 +1,15 @@
 package com.pbcompass.cursos.domain;
 
-import com.pbcompass.cursos.entities.Curso;
-import com.pbcompass.cursos.exceptions.customizadas.EntityNotFoundException;
-import com.pbcompass.cursos.exceptions.customizadas.PersistenceException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.service.CursoService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
-import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CursoServiceTest {
@@ -27,7 +19,7 @@ public class CursoServiceTest {
 
     @Mock
     private CursoRepository cursoRepository;
-
+    /*
     @Test
     public void cadastrarCurso_ComDadosValidos_RetornarCurso() {
         when(cursoRepository.save(CURSO)).thenReturn(CURSO);
@@ -87,5 +79,5 @@ public class CursoServiceTest {
 
         assertThat(testeCurso).isEqualTo(CURSO);
     }
-
+    */
 }

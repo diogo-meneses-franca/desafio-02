@@ -14,6 +14,6 @@ public class CursoCadastrarDto {
 
     private String nome;
     private Integer quantidadeHoras;
-    private ProfessorRespostaDto professor;
+    private ProfessorCadastrarCursoDto professor;
     private Area area;
 }

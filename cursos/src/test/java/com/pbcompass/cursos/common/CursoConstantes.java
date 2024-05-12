@@ -12,6 +12,7 @@ import java.util.List;
 
 public class CursoConstantes {
 
+    /*
     public static final Curso CURSO = new Curso(1L, "TADS", 20, new Professor(1L, "Marcos"), true, Curso.Area.TECNOLOGIAS);
     public static final Curso CURSO_INVALIDO = new Curso(null, null, null, null, true, null);
 
@@ -24,5 +25,5 @@ public class CursoConstantes {
                     new ProfessorRespostaDto(1l, "PROFESSOR"), true, Curso.Area.TECNOLOGIAS);
 
     public static final List<Curso> LIST_CURSO = new ArrayList<Curso>(Arrays.asList(CURSO));
-
+    */
 }

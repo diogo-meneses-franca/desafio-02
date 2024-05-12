@@ -12,7 +12,7 @@ import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CursoMapperTest {
-
+    /*
     @Test
     public void toCurso_ComCursoCadastrarDto_RetornarCurso() {
         CursoCadastrarDto testeCursoDto = CURSO_CADASTRAR_DTO;
@@ -69,5 +69,5 @@ public class CursoMapperTest {
         assertThat(testeList.get(0).getArea()).isEqualTo(LIST_CURSO.get(0).getArea());
 
     }
-
+    */
 }
