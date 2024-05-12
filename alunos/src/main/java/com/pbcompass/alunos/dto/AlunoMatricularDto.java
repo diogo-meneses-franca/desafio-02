@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlunoDto {
+public class AlunoMatricularDto {
 
     @NotBlank
     private Long id;
