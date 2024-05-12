@@ -4,13 +4,12 @@ import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.customizadas.DadosDeCadastroInvalidosException;
 import com.pbcompass.cursos.repository.ProfessorRepository;
 import com.pbcompass.cursos.service.ProfessorService;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
@@ -45,8 +44,6 @@ public class ProfessorServiceTest {
     }
 
 
-
-    /*
     @Test
     public void buscarProfessor_ComIdExistente_RetornarProfessor() {
         when(professorRepository.findById(PROFESSOR.getId())).thenReturn(Optional.of(PROFESSOR));
@@ -84,6 +81,4 @@ public class ProfessorServiceTest {
 
         assertThat(professorService.buscarTodos()).isEqualTo(PROF_LIST);
     }
-    */
-
 }
