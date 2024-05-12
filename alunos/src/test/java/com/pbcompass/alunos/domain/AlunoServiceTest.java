@@ -57,4 +57,12 @@ public class AlunoServiceTest {
         assertThatThrownBy(() -> alunoService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
     }
 
+    @Test
+    public void inativarAluno_ComIdExistente_RetornarAluno() {
+        when(alunoRepository.findById(ALUNO.getId())).thenReturn(Optional.of(ALUNO));
+        alunoService.inativar(ALUNO.getId());
+
+        assertThat(ALUNO.getAtivo()).isEqualTo(false);
+    }
+
 }
