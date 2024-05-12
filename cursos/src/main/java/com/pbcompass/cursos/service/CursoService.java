@@ -6,9 +6,11 @@ import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.exceptions.customizadas.CursoInativoException;
 import com.pbcompass.cursos.exceptions.customizadas.LimiteMatriculasAtingidoException;
 import com.pbcompass.cursos.exceptions.customizadas.AlunoMatriculadoException;
+import com.pbcompass.cursos.exceptions.customizadas.NomeDoCursoUnicoException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +27,13 @@ public class CursoService {
 
     @Transactional
     public Curso cadastrar(Curso curso){
-        curso.setProfessor(professorService.buscarPorId(curso.getProfessor().getId()));
-        return cursoRepository.save(curso);
+        try {
+            curso.setProfessor(professorService.buscarPorId(curso.getProfessor().getId()));
+            return cursoRepository.save(curso);
+
+        }catch (DataIntegrityViolationException e){
+            throw new NomeDoCursoUnicoException(String.format("Curso com o nome %s já cadastrado", curso.getNome()));
+        }
     }
 
     @Transactional(readOnly = true)

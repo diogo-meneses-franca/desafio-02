@@ -56,4 +56,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<MensagemErroPadrao> dadosDeCadastroInvalidosException(DadosDeCadastroInvalidosException e, HttpServletRequest request){
         return ResponseEntity.badRequest().body(new MensagemErroPadrao(request, HttpStatus.BAD_REQUEST, e.getMessage()));
     }
+
+    @ExceptionHandler(NomeDoCursoUnicoException.class)
+    public ResponseEntity<MensagemErroPadrao> nomeDoCursoUnicoException(NomeDoCursoUnicoException e, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new MensagemErroPadrao(request, HttpStatus.CONFLICT, e.getMessage()));
+    }
 }
