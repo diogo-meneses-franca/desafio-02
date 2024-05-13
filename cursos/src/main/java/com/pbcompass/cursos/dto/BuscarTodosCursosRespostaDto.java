@@ -1,26 +1,22 @@
 package com.pbcompass.cursos.dto;
 
-import com.pbcompass.cursos.entities.Aluno;
-import com.pbcompass.cursos.entities.Curso.Area;
+import com.pbcompass.cursos.entities.Curso;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CursoRespostaDto {
+public class BuscarTodosCursosRespostaDto {
 
     private Long id;
     private String nome;
     private Integer quantidadeHoras;
     private ProfessorRespostaDto professor;
     private boolean ativo;
-    private Area area;
+    private Curso.Area area;
     private Integer totalAlunos;
-    private Set<AlunoRespostaDto> alunos;
 }

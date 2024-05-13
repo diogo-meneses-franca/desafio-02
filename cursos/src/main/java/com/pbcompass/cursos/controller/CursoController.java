@@ -1,9 +1,9 @@
 package com.pbcompass.cursos.controller;
 
-import com.pbcompass.cursos.dto.AlunoDto;
-import com.pbcompass.cursos.dto.CursoCadastrarDto;
-import com.pbcompass.cursos.dto.CursoRespostaDto;
+import com.pbcompass.cursos.dto.*;
+import com.pbcompass.cursos.feignClients.AlunoFeign;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
+import com.pbcompass.cursos.entities.Aluno;
 import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.exceptions.MensagemErroPadrao;
 import com.pbcompass.cursos.service.CursoService;
@@ -17,7 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Tag(name = "Curso", description = "Contém todas as operações relativas aos recursos para cadastro, edição e leitura de um Curso.")
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ import java.util.List;
 public class CursoController {
 
     private final CursoService service;
+    private final AlunoFeign alunoFeign;
 
     @Operation(summary = "Cadastrar um novo curso",
             responses = {
@@ -59,9 +63,9 @@ public class CursoController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<CursoRespostaDto>> buscarTodos() {
+    public ResponseEntity<List<BuscarTodosCursosRespostaDto>> buscarTodos() {
         List<Curso> lista = service.buscarTodos();
-        return ResponseEntity.ok(CursoMapper.toListaDto(lista));
+        return ResponseEntity.ok(CursoMapper.toListBuscarTodosCursosRespostaDto(lista));
     }
 
     @Operation(summary = "buscar curso por id",
@@ -77,9 +81,21 @@ public class CursoController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<CursoRespostaDto> buscarPorId(@PathVariable long id) {
+    public ResponseEntity<CursoRespostaDto> buscarPorId(@PathVariable Long id) {
         Curso curso = service.buscarPorId(id);
-        return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
+        Set<Aluno> alunos = curso.getAlunos();
+        List<AlunoFeignBuscarTodosDto> alunosList = alunoFeign.buscarTodos().getBody();
+        Set<AlunoRespostaDto> respostaDtos = new HashSet<>();
+        for(AlunoFeignBuscarTodosDto alunoDto : alunosList) {
+            for(Aluno aluno : alunos) {
+                if(aluno.getId().equals(alunoDto.getId())) {
+                    respostaDtos.add(new AlunoRespostaDto(alunoDto.getNome(), alunoDto.getSexo(), aluno.isAtivo()));
+                }
+            }
+        }
+        CursoRespostaDto cursoDto = CursoMapper.toRespostaDto(curso);
+        cursoDto.setAlunos(respostaDtos);
+        return ResponseEntity.ok().body(cursoDto);
     }
 
 
