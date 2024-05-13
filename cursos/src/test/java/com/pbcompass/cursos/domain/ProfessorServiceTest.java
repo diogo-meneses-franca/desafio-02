@@ -1,8 +1,10 @@
 package com.pbcompass.cursos.domain;
 
 import com.pbcompass.cursos.entities.Professor;
+import com.pbcompass.cursos.exceptions.customizadas.DadosDeCadastroInvalidosException;
 import com.pbcompass.cursos.repository.ProfessorRepository;
 import com.pbcompass.cursos.service.ProfessorService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,13 +35,14 @@ public class ProfessorServiceTest {
 
         assertThat(testeProf).isEqualTo(PROFESSOR);
     }
-    /*
+
     @Test
     public void cadastrarProfessor_ComDadosInvalidos_LancarExcecao() {
-        when(professorRepository.save(PROFESSOR_INVALIDO)).thenThrow(PersistenceException.class);
+        when(professorRepository.save(PROFESSOR_INVALIDO)).thenThrow(DadosDeCadastroInvalidosException.class);
 
-        assertThatThrownBy(() -> professorService.cadastrar(PROFESSOR_INVALIDO)).isInstanceOf(PersistenceException.class);
+        assertThatThrownBy(() -> professorService.cadastrar(PROFESSOR_INVALIDO)).isInstanceOf(DadosDeCadastroInvalidosException.class);
     }
+
 
     @Test
     public void buscarProfessor_ComIdExistente_RetornarProfessor() {
@@ -78,6 +81,4 @@ public class ProfessorServiceTest {
 
         assertThat(professorService.buscarTodos()).isEqualTo(PROF_LIST);
     }
-    */
-
 }
