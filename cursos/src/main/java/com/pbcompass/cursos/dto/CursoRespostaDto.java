@@ -22,5 +22,5 @@ public class CursoRespostaDto {
     private boolean ativo;
     private Area area;
     private Integer totalAlunos;
-    private Set<Aluno> alunos;
+    private Set<AlunoRespostaDto> alunos;
 }
