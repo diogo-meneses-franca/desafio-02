@@ -67,7 +67,7 @@ public class CursoService {
     }
 
     @Transactional
-    public Curso matricular(Long cursoId, AlunoDto dto) {
+    public Curso matricular(Long cursoId, Long alunoId) {
         Curso curso = buscarPorId(cursoId);
         if(!curso.isAtivo()){
             throw new CursoInativoException("Este curso encontra-se inativo");
@@ -76,12 +76,12 @@ public class CursoService {
             throw new LimiteMatriculasAtingidoException("Não há mais vagas disponíveis neste curso");
         }
         curso.getAlunos().forEach(obj -> {
-            if(obj.getAlunoId().equals(dto.getAlunoId())){
+            if(obj.getAlunoId().equals(alunoId)){
                 throw new AlunoMatriculadoException("Aluno ja está matriculado neste curso");
             }
         });
         Aluno aluno = new Aluno();
-        aluno.setAlunoId(dto.getAlunoId());
+        aluno.setAlunoId(alunoId);
         aluno.setCurso(curso);
         aluno.setAtivo(true);
         curso.getAlunos().add(aluno);

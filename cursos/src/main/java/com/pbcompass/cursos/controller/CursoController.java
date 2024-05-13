@@ -142,8 +142,8 @@ public class CursoController {
     }
 
     @PutMapping("/matricular/{cursoId}")
-    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestBody AlunoDto dto){
-        Curso curso = service.matricular(cursoId, dto);
+    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestParam Long alunoId){
+        Curso curso = service.matricular(cursoId, alunoId);
         CursoRespostaDto resposta = CursoMapper.toRespostaDto(curso);
         return ResponseEntity.ok(resposta);
     }
