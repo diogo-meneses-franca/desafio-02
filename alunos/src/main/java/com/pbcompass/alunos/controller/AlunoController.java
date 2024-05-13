@@ -58,6 +58,19 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
+    @Operation(summary = "Buscar um aluno por id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AlunoRespostaDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "ID do aluno não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+            }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<AlunoRespostaDto> buscarPorId(@PathVariable Long id) {
         Aluno aluno = alunoService.buscarPorId(id);
