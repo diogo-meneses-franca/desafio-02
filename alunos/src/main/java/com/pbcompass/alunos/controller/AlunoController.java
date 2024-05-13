@@ -114,6 +114,29 @@ public class AlunoController {
         return ResponseEntity.ok().body(aluno);
     }
 
+    @Operation(summary = "Matricular aluno", description = "Matricula aluno, salvando-o no curso nesta API e também na API de cursos.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AlunoRespostaDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "ID do aluno não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Aluno inativo não pode realizar matrículas",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Conexão recusada",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+            }
+    )
     @PutMapping("/matricular/{alunoId}")
     public ResponseEntity<AlunoRespostaDto> matricular(@PathVariable Long alunoId, @RequestBody CursoMatricularDto dto) {
         Aluno aluno = alunoService.buscarPorId(alunoId);
