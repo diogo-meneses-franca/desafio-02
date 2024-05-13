@@ -149,4 +149,32 @@ public class AlunoIT {
         Assertions.assertThat(resposta.getStatus()).isEqualTo(422);
         Assertions.assertThat(resposta.getMensagem()).isEqualTo("Dados de entrada inválidos");
     }
+
+    @Test
+    public void buscarAluno_ComIdExistente_RetornaAlunoRespostaDtoComStatus200(){
+        AlunoRespostaDto resposta = testClient.get()
+                .uri("/api/alunos/10", 1)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(AlunoRespostaDto.class)
+                .returnResult().getResponseBody();
+
+        Assertions.assertThat(resposta).isNotNull();
+        Assertions.assertThat(resposta.getId()).isEqualTo(10);
+        Assertions.assertThat(resposta.getNome()).isEqualTo("Joao");
+    }
+
+    @Test
+    public void buscarAluno_ComIdInexistente_RetornaMensagemDeErroPadraoComStatus404(){
+        MensagemErroPadrao resposta = testClient.get()
+                .uri("/api/alunos/0", 1)
+                .exchange()
+                .expectStatus().isNotFound()
+                .expectBody(MensagemErroPadrao.class)
+                .returnResult().getResponseBody();
+
+        Assertions.assertThat(resposta).isNotNull();
+        Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+        Assertions.assertThat(resposta.getMensagem()).isEqualTo("Aluno com id 0 não encontrado");
+    }
 }
