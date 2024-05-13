@@ -1,6 +1,5 @@
 package com.pbcompass.alunos.service;
 
-import com.pbcompass.alunos.dto.CursoMatricularDto;
 import com.pbcompass.alunos.entity.Aluno;
 import com.pbcompass.alunos.entity.Curso;
 import com.pbcompass.alunos.exception.CpfUnicoException;
@@ -43,12 +42,12 @@ public class AlunoService {
     }
 
     @Transactional
-    public Aluno matricular(Long alunoId, CursoMatricularDto dto) {
+    public Aluno matricular(Long alunoId, Long cursoId) {
         Aluno aluno = buscarPorId(alunoId);
         Curso matricula = new Curso();
-        matricula.setCursoId(dto.getCursoId());
+        matricula.setCursoId(cursoId);
         aluno.getMatriculas().forEach(obj -> {
-            if (obj.getCursoId().equals(dto.getCursoId())){
+            if (obj.getCursoId().equals(cursoId)){
                 throw new AlunoMatriculadoException("Aluno ja está matriculado neste curso");}
         });
         aluno.getMatriculas().add(matricula);
