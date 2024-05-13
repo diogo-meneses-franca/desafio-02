@@ -80,6 +80,24 @@ public class AlunoController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @Operation(summary = "Inativar matrícula", description = "Inativa matrícula do aluno nesta API e também na API de cursos.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AlunoRespostaDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "ID do aluno não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro inesperado interno no servidor",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))
+                    ),
+            }
+    )
     @PutMapping("/inativar/{id}")
     public ResponseEntity<AlunoRespostaDto> inativar(@PathVariable Long id){
         AlunoRespostaDto aluno = AlunoMapper.toRespostaDto(alunoService.inativar(id));
