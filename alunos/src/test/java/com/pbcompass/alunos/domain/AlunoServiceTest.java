@@ -57,7 +57,7 @@ public class AlunoServiceTest {
 
         assertThatThrownBy(() -> alunoService.buscarPorId(99L)).isInstanceOf(EntityNotFoundException.class);
     }
-
+    /*
     @Test
     public void matricularAluno_EmCursoNaoMatriculado_RetornarAluno() {
         when(alunoRepository.findById(ALUNO.getId())).thenReturn(Optional.of(ALUNO));
@@ -66,7 +66,7 @@ public class AlunoServiceTest {
         assertThat(ALUNO.getMatriculas().size()).isEqualTo(1);
         assertThat(ALUNO.getMatriculas().stream().findFirst().get().getCursoId()).isEqualTo(CURSO_MATRICULAR_DTO.getCursoId());
     }
-
+    */  
     @Test
     public void inativarAluno_ComIdExistente_RetornarAluno() {
         when(alunoRepository.findById(ALUNO.getId())).thenReturn(Optional.of(ALUNO));

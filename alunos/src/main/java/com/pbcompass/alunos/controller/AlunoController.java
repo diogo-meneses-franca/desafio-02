@@ -147,14 +147,14 @@ public class AlunoController {
             }
     )
     @PutMapping("/matricular/{alunoId}")
-    public ResponseEntity<AlunoRespostaDto> matricular(@PathVariable Long alunoId, @RequestBody CursoMatricularDto dto) {
+    public ResponseEntity<AlunoRespostaDto> matricular(@PathVariable Long alunoId, @RequestParam Long cursoId) {
         Aluno aluno = alunoService.buscarPorId(alunoId);
         if (aluno.getAtivo()) {
             try {
                 AlunoMatricularDto matriculaDto = new AlunoMatricularDto(alunoId);
-                HttpStatusCode status = cursoFeign.matricular(dto.getCursoId(), matriculaDto).getStatusCode();
+                HttpStatusCode status = cursoFeign.matricular(cursoId, matriculaDto).getStatusCode();
                 if (status == HttpStatus.OK) {
-                    Aluno matricular = alunoService.matricular(alunoId, dto);
+                    Aluno matricular = alunoService.matricular(alunoId, cursoId);
                     Set<CursoRespostaDto> cursoRespostaDtos = matricular.getMatriculas().stream().map(matricula -> cursoFeign.buscarPorId(matricula.getCursoId()).getBody()).collect(Collectors.toSet());
                     AlunoRespostaDto resposta = AlunoMapper.toRespostaDto(matricular);
                     resposta.setMatriculas(cursoRespostaDtos);
