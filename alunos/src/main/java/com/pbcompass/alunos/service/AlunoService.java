@@ -1,6 +1,5 @@
 package com.pbcompass.alunos.service;
 
-import com.pbcompass.alunos.dto.CursoMatricularDto;
 import com.pbcompass.alunos.entity.Aluno;
 import com.pbcompass.alunos.entity.Curso;
 import com.pbcompass.alunos.exception.CpfUnicoException;

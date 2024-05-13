@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -112,7 +111,7 @@ public class AlunoController {
         AlunoRespostaDto aluno = AlunoMapper.toRespostaDto(alunoService.inativar(id));
         try {
             aluno.getMatriculas().forEach(curso -> {
-                cursoFeign.inativarMatricula(curso.getId(), new AlunoMatricularDto(aluno.getId()));
+                cursoFeign.inativarMatricula(curso.getId(), aluno.getId());
             });
             Set<CursoRespostaDto> cursos = aluno.getMatriculas().stream().map(curso ->
                     cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
@@ -151,8 +150,7 @@ public class AlunoController {
         Aluno aluno = alunoService.buscarPorId(alunoId);
         if (aluno.getAtivo()) {
             try {
-                AlunoMatricularDto matriculaDto = new AlunoMatricularDto(alunoId);
-                HttpStatusCode status = cursoFeign.matricular(cursoId, matriculaDto).getStatusCode();
+                HttpStatusCode status = cursoFeign.matricular(cursoId, alunoId).getStatusCode();
                 if (status == HttpStatus.OK) {
                     Aluno matricular = alunoService.matricular(alunoId, cursoId);
                     Set<CursoRespostaDto> cursoRespostaDtos = matricular.getMatriculas().stream().map(matricula -> cursoFeign.buscarPorId(matricula.getCursoId()).getBody()).collect(Collectors.toSet());
