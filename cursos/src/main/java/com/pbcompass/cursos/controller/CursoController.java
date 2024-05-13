@@ -149,8 +149,8 @@ public class CursoController {
     }
 
     @PutMapping("/inativar-matricula/{cursoId}")
-    public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestBody AlunoDto dto){
-        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, dto));
+    public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestParam Long alunoId){
+        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, alunoId));
         return ResponseEntity.ok().body(respostaDto);
     }
 

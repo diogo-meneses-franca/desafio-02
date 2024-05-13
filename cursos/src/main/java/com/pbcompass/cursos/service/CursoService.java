@@ -90,17 +90,17 @@ public class CursoService {
     }
 
     @Transactional
-    public Curso inativarMatricula(Long cursoId, AlunoDto dto){
+    public Curso inativarMatricula(Long cursoId, Long alunoId){
         Curso curso = buscarPorId(cursoId);
         boolean contemAluno = false;
         for(Aluno aluno : curso.getAlunos()){
-            if(aluno.getAlunoId().equals(dto.getAlunoId())){
+            if(aluno.getAlunoId().equals(alunoId)){
                 contemAluno = true;
             }
         }
         if(contemAluno){
             Set<Aluno> alunos = curso.getAlunos().stream().peek(aluno -> {
-                if(aluno.getAlunoId().equals(dto.getAlunoId())){
+                if(aluno.getAlunoId().equals(alunoId)){
                     aluno.setAtivo(false);
                 }
             }).collect(Collectors.toSet());
