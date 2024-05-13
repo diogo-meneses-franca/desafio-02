@@ -1,6 +1,5 @@
 package com.pbcompass.alunos.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class AlunoMatricularDto {
+@AllArgsConstructor
+public class BuscarTodosAlunosRespostaDto {
 
-    @NotBlank
-    private Long alunoId;
+    private Long id;
+    private String nome;
+    private String sexo;
+    private Boolean ativo;
 }
