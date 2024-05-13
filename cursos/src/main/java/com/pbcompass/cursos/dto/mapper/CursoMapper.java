@@ -1,5 +1,6 @@
 package com.pbcompass.cursos.dto.mapper;
 
+import com.pbcompass.cursos.dto.BuscarTodosCursosRespostaDto;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.entities.Curso;
@@ -29,5 +30,13 @@ public class CursoMapper {
         return cursoList.stream()
                 .map(CursoMapper::toRespostaDto)
                 .collect(Collectors.toList());
+    }
+
+    public static BuscarTodosCursosRespostaDto toBuscarTodosCursosRespostaDto(Curso curso) {
+        return new ModelMapper().map(curso, BuscarTodosCursosRespostaDto.class);
+    }
+
+    public static List<BuscarTodosCursosRespostaDto> toListBuscarTodosCursosRespostaDto(List<Curso> cursoList) {
+        return cursoList.stream().map(CursoMapper::toBuscarTodosCursosRespostaDto).toList();
     }
 }
