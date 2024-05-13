@@ -76,17 +76,17 @@ public class CursoService {
             throw new LimiteMatriculasAtingidoException("Não há mais vagas disponíveis neste curso");
         }
         curso.getAlunos().forEach(obj -> {
-            if(obj.getAlunoId().equals(dto.getId())){
+            if(obj.getAlunoId().equals(dto.getAlunoId())){
                 throw new AlunoMatriculadoException("Aluno ja está matriculado neste curso");
             }
         });
         Aluno aluno = new Aluno();
-        aluno.setAlunoId(dto.getId());
+        aluno.setAlunoId(dto.getAlunoId());
         aluno.setCurso(curso);
         aluno.setAtivo(true);
         curso.getAlunos().add(aluno);
         curso.setTotalAlunos(curso.getTotalAlunos() + 1);
-        return cursoRepository.save(curso);
+        return cursoRepository.saveAndFlush(curso);
     }
 
     @Transactional
@@ -94,13 +94,13 @@ public class CursoService {
         Curso curso = buscarPorId(cursoId);
         boolean contemAluno = false;
         for(Aluno aluno : curso.getAlunos()){
-            if(aluno.getAlunoId().equals(dto.getId())){
+            if(aluno.getAlunoId().equals(dto.getAlunoId())){
                 contemAluno = true;
             }
         }
         if(contemAluno){
             Set<Aluno> alunos = curso.getAlunos().stream().peek(aluno -> {
-                if(aluno.getAlunoId().equals(dto.getId())){
+                if(aluno.getAlunoId().equals(dto.getAlunoId())){
                     aluno.setAtivo(false);
                 }
             }).collect(Collectors.toSet());
