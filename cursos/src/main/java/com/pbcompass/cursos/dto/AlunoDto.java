@@ -13,5 +13,5 @@ import lombok.Setter;
 public class AlunoDto {
 
     @NotBlank
-    private Long id;
+    private Long alunoId;
 }
