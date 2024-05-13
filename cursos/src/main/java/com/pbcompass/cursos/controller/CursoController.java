@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Tag(name = "Curso", description = "Contém todas as operações relativas aos recursos para cadastro, edição e leitura de um Curso.")
 @RequiredArgsConstructor
@@ -142,15 +141,15 @@ public class CursoController {
     }
 
     @PutMapping("/matricular/{cursoId}")
-    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestBody AlunoDto dto){
-        Curso curso = service.matricular(cursoId, dto);
+    public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestParam Long alunoId){
+        Curso curso = service.matricular(cursoId, alunoId);
         CursoRespostaDto resposta = CursoMapper.toRespostaDto(curso);
         return ResponseEntity.ok(resposta);
     }
 
     @PutMapping("/inativar-matricula/{cursoId}")
-    public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestBody AlunoDto dto){
-        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, dto));
+    public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestParam Long alunoId){
+        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, alunoId));
         return ResponseEntity.ok().body(respostaDto);
     }
 
