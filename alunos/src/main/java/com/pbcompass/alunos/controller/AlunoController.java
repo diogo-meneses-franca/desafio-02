@@ -16,11 +16,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -78,6 +80,13 @@ public class AlunoController {
         Set<CursoRespostaDto> cursos = dto.getMatriculas().stream().map(curso -> cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
         dto.setMatriculas(cursos);
         return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BuscarTodosAlunosRespostaDto>> buscarTodos(){
+        List<Aluno> alunos = alunoService.buscarTodos();
+        List<BuscarTodosAlunosRespostaDto> respostaDtos = AlunoMapper.toListBuscarTodosAlunosRespostaDto(alunos);
+        return ResponseEntity.ok().body(respostaDtos);
     }
 
     @Operation(summary = "Inativar matrícula", description = "Inativa matrícula do aluno nesta API e também na API de cursos.",
@@ -146,9 +155,9 @@ public class AlunoController {
                 HttpStatusCode status = cursoFeign.matricular(dto.getCursoId(), matriculaDto).getStatusCode();
                 if (status == HttpStatus.OK) {
                     Aluno matricular = alunoService.matricular(alunoId, dto);
+                    Set<CursoRespostaDto> cursoRespostaDtos = matricular.getMatriculas().stream().map(matricula -> cursoFeign.buscarPorId(matricula.getCursoId()).getBody()).collect(Collectors.toSet());
                     AlunoRespostaDto resposta = AlunoMapper.toRespostaDto(matricular);
-                    Set<CursoRespostaDto> cursos = resposta.getMatriculas().stream().map(curso -> cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
-                    resposta.setMatriculas(cursos);
+                    resposta.setMatriculas(cursoRespostaDtos);
                     return ResponseEntity.status(HttpStatus.OK).body(resposta);
                 }
             } catch (FeignException e) {

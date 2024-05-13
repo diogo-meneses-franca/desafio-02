@@ -12,6 +12,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AlunoService {
@@ -33,6 +35,11 @@ public class AlunoService {
         return alunoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Aluno com id %s não encontrado", id))
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<Aluno> buscarTodos(){
+        return alunoRepository.findAll();
     }
 
     @Transactional
