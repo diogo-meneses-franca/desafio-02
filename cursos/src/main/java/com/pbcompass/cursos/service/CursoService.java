@@ -1,6 +1,5 @@
 package com.pbcompass.cursos.service;
 
-import com.pbcompass.cursos.dto.AlunoDto;
 import com.pbcompass.cursos.entities.Aluno;
 import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.exceptions.customizadas.CursoInativoException;
