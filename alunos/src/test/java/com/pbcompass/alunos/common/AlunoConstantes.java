@@ -1,6 +1,5 @@
 package com.pbcompass.alunos.common;
 
-import com.pbcompass.alunos.dto.BuscarTodosAlunosRespostaDto;
 import com.pbcompass.alunos.entity.Aluno;
 
 import java.time.LocalDate;
