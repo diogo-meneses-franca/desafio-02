@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +24,7 @@ public class Curso implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name = "nome",unique = true, nullable = false, length = 100)
     private String nome;
 
     @Column(name = "quantidadeHoras", nullable = false)
@@ -33,17 +35,22 @@ public class Curso implements Serializable {
     private Professor professor;
 
     @Column(name = "ativo", nullable = false)
-    private boolean ativo;
+    private boolean ativo = true;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "area", length = 25)
-    private Area area = Area.NULL;
+    private Area area;
+
+    private Integer totalAlunos = 0;
+
+    @JoinColumn(name = "curso_aluno")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Set<Aluno> alunos = new HashSet<>();
 
     public enum Area{
         CIENCIAS_HUMANAS,
         CIENCIAS_SOCIAIS,
-        TECNOLOGIAS,
-        NULL
+        TECNOLOGIAS
     }
 
     @Override
