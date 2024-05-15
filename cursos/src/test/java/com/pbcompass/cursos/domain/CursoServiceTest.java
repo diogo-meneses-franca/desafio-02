@@ -4,6 +4,7 @@ import com.pbcompass.cursos.entities.Curso;
 import com.pbcompass.cursos.exceptions.customizadas.NomeDoCursoUnicoException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.service.CursoService;
+import com.pbcompass.cursos.service.ProfessorService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,9 @@ public class CursoServiceTest {
 
     @Mock
     private CursoRepository cursoRepository;
+
+    @Mock
+    private ProfessorService professorService;
 
     @Test
     public void cadastrarCurso_ComDadosValidos_RetornarCurso() {
