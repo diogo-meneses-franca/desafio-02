@@ -227,4 +227,5 @@ public class CursoController {
         CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(resposta);
         return ResponseEntity.ok().body(respostaDto);
     }
+
 }
