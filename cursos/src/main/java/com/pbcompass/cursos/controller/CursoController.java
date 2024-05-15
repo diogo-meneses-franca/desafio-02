@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -102,7 +103,7 @@ public class CursoController {
                 cursoDto.setAlunos(respostaDtos);
                 return ResponseEntity.ok().body(cursoDto);
             }catch (FeignException e){
-                log.error(String.format("Erro ao buscar curso por id:  %s", e.getMessage()));
+                log.error(String.format("Erro ao buscar dados na api alunos:  %s", e.getMessage()));
                 throw new ErroComunicacaoEntreApisException("Falha ao buscar alunos matriculados");
             }
         }
@@ -111,7 +112,7 @@ public class CursoController {
     }
 
 
-    @Operation(summary = "buscar curso por nome",
+    @Operation(summary = "buscar curso e alunos matriculados",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -123,10 +124,31 @@ public class CursoController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class)))
             }
     )
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<CursoRespostaDto> buscarPorNome(@PathVariable String nome) {
-        Curso curso = service.buscarPorNome(nome);
-        return ResponseEntity.ok().body(CursoMapper.toRespostaDto(curso));
+    @GetMapping("/matriculados/{cursoId}")
+    public ResponseEntity<MatriculadosDto> buscarMatriculados(@PathVariable Long cursoId) {
+        Curso curso = service.buscarPorId(cursoId);
+        Set<Aluno> alunos = curso.getAlunos();
+        if (!alunos.isEmpty()){
+            try{
+                List<AlunoFeignBuscarTodosDto> alunosList = alunoFeign.buscarTodos().getBody();
+                Set<AlunoRespostaDto> respostaDtos = new HashSet<>();
+                for(AlunoFeignBuscarTodosDto alunoDto : alunosList) {
+                    for(Aluno aluno : alunos) {
+                        if(aluno.getId().equals(alunoDto.getId())) {
+                            respostaDtos.add(new AlunoRespostaDto(alunoDto.getNome(), alunoDto.getSexo(), aluno.isAtivo()));
+                        }
+                    }
+                }
+                MatriculadosDto cursoDto = CursoMapper.toMatriculadosDto(curso);
+                cursoDto.setAlunos(respostaDtos);
+                return ResponseEntity.ok().body(cursoDto);
+            }catch (FeignException e){
+                log.error(String.format("Erro ao buscar dados na api alunos:  %s", e.getMessage()));
+                throw new ErroComunicacaoEntreApisException("Falha ao buscar alunos matriculados");
+            }
+        }
+        MatriculadosDto cursoDto = CursoMapper.toMatriculadosDto(curso);
+        return ResponseEntity.ok().body(cursoDto);
     }
 
     @Operation(summary = "altera qualquer item no curso ",
