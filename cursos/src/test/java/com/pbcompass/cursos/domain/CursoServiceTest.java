@@ -1,15 +1,25 @@
 package com.pbcompass.cursos.domain;
 
+import com.pbcompass.cursos.entities.Curso;
+import com.pbcompass.cursos.entities.Professor;
+import com.pbcompass.cursos.exceptions.customizadas.NomeDoCursoUnicoException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.service.CursoService;
+import com.pbcompass.cursos.service.ProfessorService;
+import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static com.pbcompass.cursos.common.CursoConstantes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CursoServiceTest {
@@ -19,7 +29,10 @@ public class CursoServiceTest {
 
     @Mock
     private CursoRepository cursoRepository;
-    /*
+
+    @Mock
+    private ProfessorService professorService;
+
     @Test
     public void cadastrarCurso_ComDadosValidos_RetornarCurso() {
         when(cursoRepository.save(CURSO)).thenReturn(CURSO);
@@ -29,10 +42,14 @@ public class CursoServiceTest {
     }
 
     @Test
-    public void cadastrarCurso_ComDadosInvalidos_LancarExcecao() {
-        when(cursoRepository.save(CURSO_INVALIDO)).thenThrow(PersistenceException.class);
+    public void cadastrarCurso_ComNomeRepetido_LancarExcecao() {
+        cursoRepository.save(CURSO);
+        CURSO_INVALIDO.setProfessor(new Professor(99L, "INVALIDO"));
+        CURSO_INVALIDO.setNome("TADS");
 
-        assertThatThrownBy(() -> cursoService.cadastrar(CURSO)).isInstanceOf(PersistenceException.class);
+        when(cursoRepository.save(CURSO_INVALIDO)).thenThrow(NomeDoCursoUnicoException.class);
+
+        assertThatThrownBy(() -> cursoService.cadastrar(CURSO_INVALIDO)).isInstanceOf(NomeDoCursoUnicoException.class);
     }
 
     @Test
@@ -79,5 +96,5 @@ public class CursoServiceTest {
 
         assertThat(testeCurso).isEqualTo(CURSO);
     }
-    */
+
 }
