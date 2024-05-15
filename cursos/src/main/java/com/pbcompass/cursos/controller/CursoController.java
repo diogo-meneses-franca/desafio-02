@@ -219,4 +219,13 @@ public class CursoController {
         return ResponseEntity.ok().body(respostaDto);
     }
 
+    @PutMapping("/inativar-curso/{cursoId}")
+    public ResponseEntity<CursoRespostaDto> inativarCurso(@PathVariable Long cursoId){
+        Curso curso = service.buscarPorId(cursoId);
+        curso.setAtivo(false);
+        Curso resposta = service.alterar(curso);
+        CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(resposta);
+        return ResponseEntity.ok().body(respostaDto);
+    }
+
 }
