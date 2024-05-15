@@ -47,4 +47,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<MensagemErroPadrao> erroInativarMatriculaException(ErroInativarMatriculaException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new MensagemErroPadrao(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
     }
+
+    @ExceptionHandler(ErroComunicacaoEntreApisException.class)
+    public ResponseEntity<MensagemErroPadrao> erroComunicacaoEntreApisException(ErroComunicacaoEntreApisException ex, HttpServletRequest request){
+        return ResponseEntity.status((HttpStatus.INTERNAL_SERVER_ERROR)).body(new MensagemErroPadrao(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
+    }
 }

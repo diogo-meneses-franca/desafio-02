@@ -2,6 +2,7 @@ package com.pbcompass.alunos.controller;
 
 import com.pbcompass.alunos.dto.*;
 import com.pbcompass.alunos.entity.Aluno;
+import com.pbcompass.alunos.exception.ErroComunicacaoEntreApisException;
 import com.pbcompass.alunos.exception.ErroInativarMatriculaException;
 import com.pbcompass.alunos.exception.ErroMatricularAlunoException;
 import com.pbcompass.alunos.exception.MensagemErroPadrao;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Tag(name = "Alunos/Matrículas", description = "Contém todas as operações relativas ao cadastro, matrícula e consulta de alunos")
 @RestController
 @RequestMapping("/api/alunos")
@@ -76,8 +78,16 @@ public class AlunoController {
     public ResponseEntity<AlunoRespostaDto> buscarPorId(@PathVariable Long id) {
         Aluno aluno = alunoService.buscarPorId(id);
         AlunoRespostaDto dto = AlunoMapper.toRespostaDto(aluno);
-        Set<CursoRespostaDto> cursos = dto.getMatriculas().stream().map(curso -> cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
-        dto.setMatriculas(cursos);
+        if (!aluno.getMatriculas().isEmpty()){
+            try {
+                Set<CursoRespostaDto> cursos = dto.getMatriculas().stream().map(curso -> cursoFeign.buscarPorId(curso.getId()).getBody()).collect(Collectors.toSet());
+                dto.setMatriculas(cursos);
+
+            }catch (FeignException e){
+                log.error("Erro ao buscar cursos na api cursos: " + e.getMessage());
+                throw new ErroComunicacaoEntreApisException("Erro ao buscar os cursos nos quais o aluno está matriculado");
+            }
+        }
         return ResponseEntity.ok().body(dto);
     }
 
