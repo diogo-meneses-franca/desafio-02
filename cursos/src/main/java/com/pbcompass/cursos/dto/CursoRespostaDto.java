@@ -1,6 +1,5 @@
 package com.pbcompass.cursos.dto;
 
-import com.pbcompass.cursos.entities.Aluno;
 import com.pbcompass.cursos.entities.Curso.Area;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
