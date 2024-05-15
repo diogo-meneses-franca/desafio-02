@@ -3,7 +3,9 @@ package com.pbcompass.alunos.common;
 import com.pbcompass.alunos.entity.Aluno;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class AlunoConstantes {
 
@@ -12,5 +14,7 @@ public class AlunoConstantes {
     );
 
     public static final Aluno ALUNO_INVALIDO = new Aluno(0L, "", "", LocalDate.now(), "", false);
+
+    public static final List<Aluno> LIST_AlUNOS = new ArrayList<>();
 
 }
