@@ -8,8 +8,10 @@ import com.pbcompass.alunos.mapper.AlunoMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.pbcompass.alunos.common.AlunoConstantes.ALUNO;
+import static com.pbcompass.alunos.common.AlunoConstantes.LIST_AlUNOS;
 import static org.assertj.core.api.Assertions.*;
 
 public class AlunoMapperTest {
@@ -45,6 +47,22 @@ public class AlunoMapperTest {
         assertThat(testeBuscarTodosDto.getNome()).isEqualTo(ALUNO.getNome());
         assertThat(testeBuscarTodosDto.getSexo()).isEqualTo(ALUNO.getSexo());
         assertThat(testeBuscarTodosDto.getAtivo()).isEqualTo(ALUNO.getAtivo());
+    }
+
+    @Test
+    public void toListBuscarTodosAlunosRespostaDto_RetornarListaDeBuscarTodosAlunosRespostaDto() {
+
+        LIST_AlUNOS.add(ALUNO);
+
+        List<BuscarTodosAlunosRespostaDto> testeBuscarTodosDto =
+                LIST_AlUNOS.stream()
+                        .map(AlunoMapper::toBuscarTodosAlunosRespostaDto)
+                        .toList();
+
+        assertThat(testeBuscarTodosDto.get(0).getId()).isEqualTo(ALUNO.getId());
+        assertThat(testeBuscarTodosDto.get(0).getNome()).isEqualTo(ALUNO.getNome());
+        assertThat(testeBuscarTodosDto.get(0).getSexo()).isEqualTo(ALUNO.getSexo());
+        assertThat(testeBuscarTodosDto.get(0).getAtivo()).isEqualTo(ALUNO.getAtivo());
     }
 
 }
