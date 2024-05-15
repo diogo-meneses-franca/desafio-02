@@ -61,4 +61,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<MensagemErroPadrao> nomeDoCursoUnicoException(NomeDoCursoUnicoException e, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new MensagemErroPadrao(request, HttpStatus.CONFLICT, e.getMessage()));
     }
+
+    @ExceptionHandler(ErroComunicacaoEntreApisException.class)
+    public ResponseEntity<MensagemErroPadrao> erroComunicacaoEntreApisException(ErroComunicacaoEntreApisException e, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MensagemErroPadrao(request, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+    }
 }
