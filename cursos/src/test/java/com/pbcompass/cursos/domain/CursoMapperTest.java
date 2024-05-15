@@ -91,4 +91,22 @@ public class CursoMapperTest {
 
     }
 
+    @Test
+    public void toListBuscarTodosCursosRespostaDto_RetornarListaDeBuscarTodosCursosRespostaDto() {
+
+        List<BuscarTodosCursosRespostaDto> testeList =
+                LIST_CURSO.stream()
+                        .map(CursoMapper::toBuscarTodosCursosRespostaDto)
+                        .toList();
+
+        assertThat(testeList.size()).isEqualTo(LIST_CURSO.size());
+        assertThat(testeList.get(0).getId()).isEqualTo(LIST_CURSO.get(0).getId());
+        assertThat(testeList.get(0).getNome()).isEqualTo(LIST_CURSO.get(0).getNome());
+        assertThat(testeList.get(0).getQuantidadeHoras()).isEqualTo(LIST_CURSO.get(0).getQuantidadeHoras());
+        assertThat(testeList.get(0).getProfessor().getId()).isEqualTo(LIST_CURSO.get(0).getProfessor().getId());
+        assertThat(testeList.get(0).isAtivo()).isEqualTo(LIST_CURSO.get(0).isAtivo());
+        assertThat(testeList.get(0).getTotalAlunos()).isEqualTo(LIST_CURSO.get(0).getTotalAlunos());
+
+    }
+
 }
