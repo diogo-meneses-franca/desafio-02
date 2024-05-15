@@ -17,18 +17,18 @@ import static org.assertj.core.api.Assertions.*;
 public class AlunoMapperTest {
 
     @Test
-    public void toRespostaDto_ComDadosValidos_RetornarAlunoRespostaDto() {
-        Aluno testeAluno = new Aluno(1L ,"Mateus", "89456711021", LocalDate.parse("1999-09-09"), "M", true);
-        AlunoRespostaDto testeDto = AlunoMapper.toRespostaDto(testeAluno);
+    public void toRespostaDto_RetornarAlunoRespostaDto() {
 
-        assertThat(testeDto.getId()).isEqualTo(testeAluno.getId());
-        assertThat(testeDto.getNome()).isEqualTo(testeAluno.getNome());
-        assertThat(testeDto.getSexo()).isEqualTo(testeAluno.getSexo());
-        assertThat(testeDto.getAtivo()).isEqualTo(testeAluno.getAtivo());
+        AlunoRespostaDto testeDto = AlunoMapper.toRespostaDto(ALUNO);
+
+        assertThat(testeDto.getId()).isEqualTo(ALUNO.getId());
+        assertThat(testeDto.getNome()).isEqualTo(ALUNO.getNome());
+        assertThat(testeDto.getSexo()).isEqualTo(ALUNO.getSexo());
+        assertThat(testeDto.getAtivo()).isEqualTo(ALUNO.getAtivo());
     }
 
     @Test
-    public void toAluno_ComDadosValidos_RetornarAluno() {
+    public void toAluno_RetornarAluno() {
         AlunoCadastrarDto testeAlunoDto = new AlunoCadastrarDto("Mateus", "89456711021", LocalDate.parse("1999-09-09"), "M");
         Aluno testeAluno = AlunoMapper.toAluno(testeAlunoDto);
 
