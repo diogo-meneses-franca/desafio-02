@@ -1,11 +1,13 @@
 package com.pbcompass.cursos.domain;
 
 import com.pbcompass.cursos.entities.Curso;
+import com.pbcompass.cursos.entities.Professor;
 import com.pbcompass.cursos.exceptions.customizadas.NomeDoCursoUnicoException;
 import com.pbcompass.cursos.repository.CursoRepository;
 import com.pbcompass.cursos.service.CursoService;
 import com.pbcompass.cursos.service.ProfessorService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,10 +43,14 @@ public class CursoServiceTest {
     }
 
     @Test
-    public void cadastrarCurso_ComDadosInvalidos_LancarExcecao() {
+    public void cadastrarCurso_ComNomeRepetido_LancarExcecao() {
+        cursoRepository.save(CURSO);
+        CURSO_INVALIDO.setProfessor(new Professor(99L, "INVALIDO"));
+        CURSO_INVALIDO.setNome("TADS");
+
         when(cursoRepository.save(CURSO_INVALIDO)).thenThrow(NomeDoCursoUnicoException.class);
 
-        assertThatThrownBy(() -> cursoService.cadastrar(CURSO)).isInstanceOf(NomeDoCursoUnicoException.class);
+        assertThatThrownBy(() -> cursoService.cadastrar(CURSO_INVALIDO)).isInstanceOf(NomeDoCursoUnicoException.class);
     }
 
     @Test
