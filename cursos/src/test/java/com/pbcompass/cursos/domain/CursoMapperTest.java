@@ -1,5 +1,6 @@
 package com.pbcompass.cursos.domain;
 
+import com.pbcompass.cursos.dto.BuscarTodosCursosRespostaDto;
 import com.pbcompass.cursos.dto.CursoCadastrarDto;
 import com.pbcompass.cursos.dto.CursoRespostaDto;
 import com.pbcompass.cursos.dto.mapper.CursoMapper;
@@ -73,6 +74,20 @@ public class CursoMapperTest {
         assertThat(testeList.get(0).isAtivo()).isEqualTo(LIST_CURSO.get(0).isAtivo());
         assertThat(testeList.get(0).getTotalAlunos()).isEqualTo(LIST_CURSO.get(0).getTotalAlunos());
         assertThat(testeList.get(0).getAlunos()).isEqualTo(LIST_CURSO.get(0).getAlunos());
+
+    }
+
+    @Test
+    public void toBuscarTodosCursosRespostaDto_RetornaBuscarTodosCursosRespostaDto() {
+        BuscarTodosCursosRespostaDto testeBuscarTodosDto = CursoMapper.toBuscarTodosCursosRespostaDto(CURSO);;
+
+        assertThat(testeBuscarTodosDto.getId()).isEqualTo(CURSO.getId());
+        assertThat(testeBuscarTodosDto.getNome()).isEqualTo(CURSO.getNome());
+        assertThat(testeBuscarTodosDto.getQuantidadeHoras()).isEqualTo(CURSO.getQuantidadeHoras());
+        assertThat(testeBuscarTodosDto.getProfessor().getId()).isEqualTo(CURSO.getProfessor().getId());
+        assertThat(testeBuscarTodosDto.isAtivo()).isEqualTo(CURSO.isAtivo());
+        assertThat(testeBuscarTodosDto.getArea()).isEqualTo(CURSO.getArea());
+        assertThat(testeBuscarTodosDto.getTotalAlunos()).isEqualTo(CURSO.getTotalAlunos());
 
     }
 
