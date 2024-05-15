@@ -47,13 +47,6 @@ public class CursoService {
                 () -> new EntityNotFoundException(String.format("Curso '%s' não foi encontrado", nome)));
     }
 
-    @Transactional
-    public void inativarCurso(Long id) {
-        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
-        curso.setAtivo(false);
-        cursoRepository.save(curso);
-    }
-
     @Transactional(readOnly = true)
     public List<Curso> buscarTodos() {
         List<Curso> curso = cursoRepository.findAll();
