@@ -153,13 +153,44 @@ public class CursoController {
         return ResponseEntity.ok(resposta);
     }
 
+    @Operation(summary = "matricula um aluno no curso ",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Matricula realizada com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Corpo requisição invalido",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Aluno não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
+            }
+    )
     @PutMapping("/matricular/{cursoId}")
     public ResponseEntity<CursoRespostaDto> matricular(@PathVariable Long cursoId, @RequestParam Long alunoId){
         Curso curso = service.matricular(cursoId, alunoId);
         CursoRespostaDto resposta = CursoMapper.toRespostaDto(curso);
         return ResponseEntity.ok(resposta);
     }
-
+    @Operation(summary = "Inativa a matricula um aluno no curso ",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Matricula inativada com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CursoRespostaDto.class))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Corpo requisição invalido",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Aluno não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MensagemErroPadrao.class))),
+            }
+    )
     @PutMapping("/inativar-matricula/{cursoId}")
     public ResponseEntity<CursoRespostaDto> inativarMatricula(@PathVariable Long cursoId,@RequestParam Long alunoId){
         CursoRespostaDto respostaDto = CursoMapper.toRespostaDto(service.inativarMatricula(cursoId, alunoId));
