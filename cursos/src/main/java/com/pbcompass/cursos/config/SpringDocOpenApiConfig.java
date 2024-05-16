@@ -1,0 +1,19 @@
+package com.pbcompass.cursos.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SpringDocOpenApiConfig {
+
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(
+                        new Info()
+                                .title("REST API - Alunos e Matrículas")
+                                .description("API para gestão de alunos e matrículas.")
+                );
+    }
+
+}
